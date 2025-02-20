@@ -1,0 +1,37 @@
+# section information
+section:
+  name: Education
+  id: education
+  template: sections/education.html # Use "sections/education-alt.html for alternate template.
+  enable: true
+  weight: 4
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+degrees:
+- name: Master of Science - MS, Artificial Intelligence (AI) and Machine Learning
+  icon: fa-microscope
+  timeframe: 2024-2025
+  institution:
+    name: University of Birmingham
+    url: "https://www.birmingham.ac.uk/"
+    logo: /images/education/uob.png
+    # Can optionally show a different logo for dark theme
+    # darkLogo: /images/sections/education/tech_college.png
+  takenCourses:
+    showGrades: false
+    courses:
+    - name: Natural language Processing
+    - name: Computer Vision and Imaging
+    - name: Robot Vision
+    - name: Current Topics in Artificial Intelligence and Machine Learning
+
+
+- name: B.Sc. in Biomedical Engineering
+  icon: fa-graduation-cap
+  timeframe: 2018-2022
+  institution:
+    name: International University - VNU-HCM  
+    url: "https://hcmiu.edu.vn/en/students/international-students/"
+    logo: /images/education/iu.png

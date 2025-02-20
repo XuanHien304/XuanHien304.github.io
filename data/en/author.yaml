@@ -1,0 +1,16 @@
+# some information about you
+name: "Vu Xuan Hien"
+nickname: "Hien"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
+image: "images/site/ava.png"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  email: "vuxuanhien304@gmail.com"
+  phone: "+447516786651"
+  github: XuanHien304
+  linkedin: vu-xuan-hien-83b9961b6/
+
+# some summary about what you do
+summary:
+  - I am a noob Developer

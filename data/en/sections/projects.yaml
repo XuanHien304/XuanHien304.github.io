@@ -1,0 +1,82 @@
+# section information
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 5
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# filter buttons
+buttons:
+- name: All
+  filter: "all"
+- name: Professional
+  filter: "professional"
+- name: Academic
+  filter: "academic"
+- name: Hobby
+  filter: "hobby"
+
+# your projects
+projects:
+- name: Generative Japanese Handwriting Synthesis
+  logo: /images/projects/japan.png
+  role: AI Engineer
+  timeline: "2023"
+  summary: "Developed a generative model to synthesize Japanese handwriting in diverse styles, enhancing Japanese OCR accuracy."
+  tags: ["professional"]
+
+- name: Personalized Learning Path Recommendation System
+  logo: /images/projects/learn.png
+  role: AI Engineer
+  timeline: "2024"
+  summary: "Designed a deep learning and hybrid collaborative filtering-based system for personalized learning path recommendations for Japanese students, utilizing Knowledge Tracing models."
+  tags: ["professional"]
+
+- name: Video Understanding System
+  logo: /images/projects/vid.png
+  role: AI Engineer
+  timeline: "2023"
+  summary: "Built a video understanding system for human tracking and action recognition, achieving 96% accuracy on customer test sets."
+  tags: ["professional"]
+
+- name: Credit Score & Income Score (Risk Assessment)
+  logo: /images/projects/credit.svg
+  role: Machine Learning Engineer
+  timeline: "2024"
+  summary: "Developed a credit and income scoring system for Vietnamese population using telco data, improving financial accessibility."
+  tags: ["professional"]
+
+- name: Vietnamese Medical Chatbot
+  logo: /images/projects/chatbot.png
+  role: Developer
+  timeline: "2022"
+  repo: https://github.com/XuanHien304/Vietnamese-medical-chatbot-based
+  summary: "Built an NLP chatbot for medical queries in Vietnamese."
+  tags: ["academic", "hobby"]
+
+- name: Respiratory Disease Detection Android App
+  logo: /images/projects/android.png
+  role: Developer
+  timeline: "2021"
+  repo: https://github.com/XuanHien304/respiratory-disease-detection-android-app
+  summary: "Developed a mobile app using ML to analyze coughing and breathing sounds."
+  tags: ["academic", "hobby"]
+
+- name: End-to-End Action Segmentation
+  logo: /images/projects/action.png
+  role: Developer
+  timeline: "2022"
+  repo: https://github.com/XuanHien304/E2E-Action-Segmentation
+  summary: "Created a model to detect and classify activities in video frames."
+  tags: ["hobby"]
+
+- name: Natural Language Inference
+  logo: /images/projects/nli.png
+  role: Developer
+  timeline: "2022"
+  repo: https://github.com/vnk8071/nli-end-to-end
+  summary: "Built an NLP model using Transformers to analyze sentence relationships."
+  tags: ["hobby"]
