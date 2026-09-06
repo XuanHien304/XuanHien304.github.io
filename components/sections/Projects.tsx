@@ -40,7 +40,8 @@ export function Projects() {
                 alt=""
                 width={40}
                 height={40}
-                className="h-10 w-10 shrink-0 rounded-lg object-contain"
+                className="shrink-0 rounded-lg"
+                style={{ width: 40, height: 40, objectFit: "contain" }}
               />
               <div>
                 <h3 className="font-semibold leading-tight">{project.name}</h3>

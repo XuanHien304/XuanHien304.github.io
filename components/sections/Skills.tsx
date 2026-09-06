@@ -31,7 +31,13 @@ export function Skills() {
         {visible.map((skill) => {
           const card = (
             <div className="flex h-full flex-col items-center gap-3 rounded-xl border border-black/10 p-4 text-center transition-colors hover:border-black/25 dark:border-white/10 dark:hover:border-white/25">
-              <Image src={skill.logo} alt={skill.name} width={40} height={40} className="object-contain" />
+              <Image
+                src={skill.logo}
+                alt={skill.name}
+                width={40}
+                height={40}
+                style={{ width: 40, height: 40, objectFit: "contain" }}
+              />
               <p className="text-sm font-medium">{skill.name}</p>
               <p className="text-xs text-black/50 dark:text-white/50">{skill.summary}</p>
             </div>

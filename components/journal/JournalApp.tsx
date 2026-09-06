@@ -37,6 +37,27 @@ export function JournalApp() {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const [formOpen, setFormOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<Entry | null>(null);
+  const [mutationError, setMutationError] = useState<string | null>(null);
+
+  function describeError(err: unknown): string {
+    if (err && typeof err === "object" && "message" in err) {
+      const message = String((err as { message?: unknown }).message);
+      if (message.includes("row-level security") || message.includes("policy")) {
+        return "That was rejected by the database's access rules -- you may not be signed in as the owner.";
+      }
+      return message;
+    }
+    return "Something went wrong saving that.";
+  }
+
+  async function guarded(action: () => Promise<void>) {
+    try {
+      setMutationError(null);
+      await action();
+    } catch (err) {
+      setMutationError(describeError(err));
+    }
+  }
 
   async function loadAll() {
     setLoadState("loading");
@@ -109,38 +130,48 @@ export function JournalApp() {
   }
 
   async function saveEntry(draft: EntryDraft) {
-    if (editingEntry) {
-      const updated = await updateEntry(editingEntry.id, draft);
-      setEntries((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
-    } else {
-      const created = await createEntry(draft);
-      setEntries((prev) => [created, ...prev]);
-    }
-    setFormOpen(false);
+    await guarded(async () => {
+      if (editingEntry) {
+        const updated = await updateEntry(editingEntry.id, draft);
+        setEntries((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
+      } else {
+        const created = await createEntry(draft);
+        setEntries((prev) => [created, ...prev]);
+      }
+      setFormOpen(false);
+    });
   }
 
   async function removeEntry(id: string) {
-    await deleteEntry(id);
-    setEntries((prev) => prev.filter((e) => e.id !== id));
+    await guarded(async () => {
+      await deleteEntry(id);
+      setEntries((prev) => prev.filter((e) => e.id !== id));
+    });
   }
 
   async function addSubject(name: string) {
-    const created = await createSubject(name);
-    setSubjects((prev) => [...prev, created]);
-    setSelectedSubjectId(created.id);
+    await guarded(async () => {
+      const created = await createSubject(name);
+      setSubjects((prev) => [...prev, created]);
+      setSelectedSubjectId(created.id);
+    });
   }
 
   async function addCategory(name: string) {
-    if (!selectedSubjectId) return;
-    const created = await createCategory(selectedSubjectId, name);
-    setCategories((prev) => [...prev, created]);
+    await guarded(async () => {
+      if (!selectedSubjectId) return;
+      const created = await createCategory(selectedSubjectId, name);
+      setCategories((prev) => [...prev, created]);
+    });
   }
 
   async function removeCategory(id: string) {
-    await deleteCategory(id);
-    setCategories((prev) => prev.filter((c) => c.id !== id));
-    setEntries((prev) => prev.map((e) => (e.category_id === id ? { ...e, category_id: null } : e)));
-    if (selectedCategoryId === id) setSelectedCategoryId("all");
+    await guarded(async () => {
+      await deleteCategory(id);
+      setCategories((prev) => prev.filter((c) => c.id !== id));
+      setEntries((prev) => prev.map((e) => (e.category_id === id ? { ...e, category_id: null } : e)));
+      if (selectedCategoryId === id) setSelectedCategoryId("all");
+    });
   }
 
   if (!isSupabaseConfigured) {
@@ -184,6 +215,35 @@ export function JournalApp() {
 
   return (
     <div className="journal-root">
+      {mutationError && (
+        <div
+          style={{
+            position: "fixed",
+            top: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 100,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            background: "var(--jn-rust)",
+            color: "#FFFFFF",
+            borderRadius: 4,
+            padding: "10px 14px",
+            fontSize: 13,
+            maxWidth: "min(90vw, 480px)",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+          }}
+        >
+          <span>{mutationError}</span>
+          <button
+            onClick={() => setMutationError(null)}
+            style={{ border: "none", background: "transparent", color: "#FFFFFF", cursor: "pointer", flexShrink: 0 }}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
       <div style={{ maxWidth: 920, margin: "0 auto", padding: "32px 20px 64px" }}>
         <div
           style={{
@@ -261,15 +321,17 @@ export function JournalApp() {
             </div>
 
             <div style={{ display: "flex", gap: 28 }}>
-              <CategorySidebar
-                categories={categoriesForSubject}
-                counts={categoryCounts}
-                totalCount={entriesForSubject.length}
-                selectedId={selectedCategoryId}
-                onSelect={setSelectedCategoryId}
-                onCreate={addCategory}
-                onDelete={removeCategory}
-              />
+              {isOwner && (
+                <CategorySidebar
+                  categories={categoriesForSubject}
+                  counts={categoryCounts}
+                  totalCount={entriesForSubject.length}
+                  selectedId={selectedCategoryId}
+                  onSelect={setSelectedCategoryId}
+                  onCreate={addCategory}
+                  onDelete={removeCategory}
+                />
+              )}
 
               <div style={{ flex: 1, minWidth: 0 }}>
                 {visibleEntries.length === 0 && (

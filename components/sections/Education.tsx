@@ -21,7 +21,8 @@ export function Education() {
                 alt={degree.institution.name}
                 width={48}
                 height={48}
-                className="h-12 w-12 shrink-0 rounded-lg object-contain"
+                className="shrink-0 rounded-lg"
+                style={{ width: 48, height: 48, objectFit: "contain" }}
               />
               <div>
                 <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50">

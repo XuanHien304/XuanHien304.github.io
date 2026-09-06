@@ -10,7 +10,8 @@ export function Hero() {
         alt={author.name}
         width={140}
         height={140}
-        className="rounded-full border border-black/10 object-cover dark:border-white/10"
+        className="rounded-full border border-black/10 dark:border-white/10"
+        style={{ width: 140, height: 140, objectFit: "cover" }}
       />
       <div>
         <p className="text-lg text-black/60 dark:text-white/60">{author.greeting}</p>
