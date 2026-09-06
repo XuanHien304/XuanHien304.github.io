@@ -3,7 +3,8 @@
 One-time setup, done in your own Supabase/GitHub accounts (not automatable):
 
 1. Create a project at supabase.com (free tier is fine).
-2. In the SQL editor, run `migrations/0001_init.sql` then `seed.sql`.
+2. In the SQL editor, run `migrations/0001_init.sql`, then
+   `migrations/0002_add_area.sql`, then `seed.sql`, in that order.
 3. Register a GitHub OAuth App at github.com/settings/developers.
    Authorization callback URL: `https://<project-ref>.supabase.co/auth/v1/callback`.
 4. In Supabase → Authentication → Providers → GitHub, paste the OAuth

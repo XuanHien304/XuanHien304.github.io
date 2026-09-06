@@ -1,5 +1,6 @@
 export interface Subject {
   id: string;
+  area: string;
   slug: string;
   name: string;
   sort_order: number;

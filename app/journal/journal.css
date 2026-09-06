@@ -20,6 +20,11 @@
   font-family: "IBM Plex Mono", monospace;
 }
 
+.journal-root .jactions {
+  opacity: 0;
+  transition: opacity 120ms;
+}
+
 .journal-root .jrow:hover .jactions {
   opacity: 1;
 }

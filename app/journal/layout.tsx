@@ -3,8 +3,8 @@ import "./journal.css";
 import { AuthProvider } from "@/lib/useAuth";
 
 export const metadata: Metadata = {
-  title: "Learning Journal",
-  description: "A running log of what I'm learning, by subject.",
+  title: "Journals",
+  description: "A running log of things worth writing down, by subject.",
 };
 
 export default function JournalLayout({ children }: { children: React.ReactNode }) {

@@ -6,9 +6,9 @@ async function requireClient() {
   return supabase;
 }
 
-export async function fetchSubjects(): Promise<Subject[]> {
+export async function fetchSubjects(area: string): Promise<Subject[]> {
   const client = await requireClient();
-  const { data, error } = await client.from("subjects").select("*").order("sort_order");
+  const { data, error } = await client.from("subjects").select("*").eq("area", area).order("sort_order");
   if (error) throw error;
   return data as Subject[];
 }
@@ -27,7 +27,7 @@ export async function fetchEntries(): Promise<Entry[]> {
   return data as Entry[];
 }
 
-export async function createSubject(name: string): Promise<Subject> {
+export async function createSubject(name: string, sortOrder: number, area: string): Promise<Subject> {
   const client = await requireClient();
   const slug = name
     .toLowerCase()
@@ -36,7 +36,7 @@ export async function createSubject(name: string): Promise<Subject> {
     .replace(/(^-|-$)/g, "");
   const { data, error } = await client
     .from("subjects")
-    .insert({ name, slug, sort_order: Date.now() })
+    .insert({ name, slug, sort_order: sortOrder, area })
     .select()
     .single();
   if (error) throw error;
@@ -49,11 +49,11 @@ export async function deleteSubject(id: string): Promise<void> {
   if (error) throw error;
 }
 
-export async function createCategory(subjectId: string, name: string): Promise<Category> {
+export async function createCategory(subjectId: string, name: string, sortOrder: number): Promise<Category> {
   const client = await requireClient();
   const { data, error } = await client
     .from("categories")
-    .insert({ subject_id: subjectId, name, sort_order: Date.now() })
+    .insert({ subject_id: subjectId, name, sort_order: sortOrder })
     .select()
     .single();
   if (error) throw error;

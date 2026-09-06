@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { FiPlus, FiSearch } from "react-icons/fi";
+import { FiArrowLeft, FiPlus, FiSearch } from "react-icons/fi";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { useAuth } from "@/lib/useAuth";
 import {
@@ -24,7 +25,13 @@ import { EntryFormModal } from "@/components/journal/EntryFormModal";
 
 type LoadState = "loading" | "ready" | "error";
 
-export function JournalApp() {
+interface JournalAppProps {
+  area: string;
+  title: string;
+  tagline: string;
+}
+
+export function JournalApp({ area, title, tagline }: JournalAppProps) {
   const { isOwner } = useAuth();
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -62,7 +69,7 @@ export function JournalApp() {
   async function loadAll() {
     setLoadState("loading");
     try {
-      const [s, c, e] = await Promise.all([fetchSubjects(), fetchCategories(), fetchEntries()]);
+      const [s, c, e] = await Promise.all([fetchSubjects(area), fetchCategories(), fetchEntries()]);
       setSubjects(s);
       setCategories(c);
       setEntries(e);
@@ -151,7 +158,8 @@ export function JournalApp() {
 
   async function addSubject(name: string) {
     await guarded(async () => {
-      const created = await createSubject(name);
+      const nextOrder = Math.max(0, ...subjects.map((s) => s.sort_order)) + 1;
+      const created = await createSubject(name, nextOrder, area);
       setSubjects((prev) => [...prev, created]);
       setSelectedSubjectId(created.id);
     });
@@ -160,7 +168,8 @@ export function JournalApp() {
   async function addCategory(name: string) {
     await guarded(async () => {
       if (!selectedSubjectId) return;
-      const created = await createCategory(selectedSubjectId, name);
+      const nextOrder = Math.max(0, ...categoriesForSubject.map((c) => c.sort_order)) + 1;
+      const created = await createCategory(selectedSubjectId, name, nextOrder);
       setCategories((prev) => [...prev, created]);
     });
   }
@@ -256,9 +265,24 @@ export function JournalApp() {
           }}
         >
           <div>
-            <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>Learning Journal</h1>
+            <Link
+              href="/journal/"
+              className="mono"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 4,
+                fontSize: 12,
+                color: "var(--jn-muted)",
+                textDecoration: "none",
+                marginBottom: 8,
+              }}
+            >
+              <FiArrowLeft size={12} /> All journals
+            </Link>
+            <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>{title}</h1>
             <p className="mono" style={{ fontSize: 12, color: "var(--jn-muted)", margin: "4px 0 0" }}>
-              trigger · invariant · complexity · mistake
+              {tagline}
             </p>
           </div>
           <AuthBar />

@@ -91,7 +91,7 @@ export function EntryRow({
           {entry.entry_date}
         </span>
         {isOwner && (
-          <div className="jactions" style={{ display: "flex", gap: 4, opacity: 0, transition: "opacity 120ms" }}>
+          <div className="jactions" style={{ display: "flex", gap: 4 }}>
             <button
               onClick={(e) => {
                 e.stopPropagation();

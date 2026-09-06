@@ -76,8 +76,6 @@ export function CategorySidebar({
               className="jactions"
               onClick={() => onDelete(c.id)}
               style={{
-                opacity: 0,
-                transition: "opacity 120ms",
                 border: "none",
                 background: "transparent",
                 color: "var(--jn-muted)",
