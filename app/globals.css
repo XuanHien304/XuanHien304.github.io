@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1a1a18;
+  --color-paper: #fafaf8;
+  --color-accent-teal: #2f5d5a;
+  --color-accent-rust: #a8472f;
+}
+
+body {
+  background: #ffffff;
+  color: #1a1a18;
+}
+
+.dark body {
+  background: #0b0c0e;
+  color: #f2f1ec;
+}
