@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap");
+
+.journal-root {
+  --jn-paper: #fafaf8;
+  --jn-ink: #1a1a18;
+  --jn-border: #dedcd3;
+  --jn-muted: #6b6b65;
+  --jn-placeholder: #a6a49a;
+  --jn-teal: #2f5d5a;
+  --jn-teal-bg: #edf2f1;
+  --jn-rust: #a8472f;
+
+  font-family: "IBM Plex Sans", sans-serif;
+  background: var(--jn-paper);
+  color: var(--jn-ink);
+  min-height: 100vh;
+}
+
+.journal-root .mono {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.journal-root .jrow:hover .jactions {
+  opacity: 1;
+}
+
+.journal-root textarea,
+.journal-root input,
+.journal-root select {
+  font-family: inherit;
+}
+
+.journal-root ::placeholder {
+  color: var(--jn-placeholder);
+}
