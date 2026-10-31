@@ -58,7 +58,7 @@ export default function JournalHubPage() {
                 gap: 16,
                 textDecoration: "none",
                 color: "var(--jn-ink)",
-                background: "#FFFFFF",
+                background: "var(--jn-card)",
                 border: "1px solid var(--jn-border)",
                 borderRadius: 4,
                 padding: "18px 20px",

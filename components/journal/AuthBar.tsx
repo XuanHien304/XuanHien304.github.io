@@ -37,7 +37,7 @@ export function AuthBar() {
             alignItems: "center",
             gap: 6,
             border: "1px solid var(--jn-border)",
-            background: "#FFFFFF",
+            background: "var(--jn-card)",
             borderRadius: 3,
             padding: "6px 12px",
             fontSize: 12,

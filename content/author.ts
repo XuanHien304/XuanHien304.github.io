@@ -1,6 +1,5 @@
 export interface ContactInfo {
   email: string;
-  phone: string;
   github: string;
   linkedin: string;
 }
@@ -8,8 +7,10 @@ export interface ContactInfo {
 export interface AuthorInfo {
   name: string;
   nickname: string;
-  greeting: string;
   image: string;
+  location: string;
+  headline: string;
+  current: { role: string; company: string };
   contactInfo: ContactInfo;
   summary: string[];
 }
@@ -17,13 +18,17 @@ export interface AuthorInfo {
 export const author: AuthorInfo = {
   name: "Vu Xuan Hien",
   nickname: "Hien",
-  greeting: "Hi, I am",
   image: "/images/site/ava.png",
+  location: "United Kingdom",
+  headline: "I build machine learning and LLM systems that hold up in production.",
+  current: { role: "Machine Learning Engineer", company: "GE Vernova" },
   contactInfo: {
     email: "vuxuanhien304@gmail.com",
-    phone: "+447516786651",
     github: "XuanHien304",
     linkedin: "vu-xuan-hien-83b9961b6/",
   },
-  summary: ["I am a noob Developer"],
+  summary: [
+    "Machine Learning Engineer with experience building and deploying ML systems end to end, from large-scale data pipelines and feature engineering to model deployment, monitoring and scaling.",
+    "I've shipped LLM-powered systems, credit-risk models and computer vision applications across fintech, industrial and enterprise settings.",
+  ],
 };

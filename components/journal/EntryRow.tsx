@@ -56,7 +56,7 @@ export function EntryRow({
   return (
     <div
       className="jrow"
-      style={{ border: "1px solid var(--jn-border)", borderRadius: 3, marginBottom: 10, background: "#FFFFFF" }}
+      style={{ border: "1px solid var(--jn-border)", borderRadius: 3, marginBottom: 10, background: "var(--jn-card)" }}
     >
       <div
         onClick={onToggle}

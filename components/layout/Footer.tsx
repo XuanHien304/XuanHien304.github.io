@@ -1,31 +1,29 @@
-import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
 import { site } from "@/content/site";
-import { about } from "@/content/about";
-
-const ICONS = { email: FaEnvelope, github: FaGithub, linkedin: FaLinkedin };
+import { author } from "@/content/author";
+import { Reveal } from "@/components/Reveal";
+import { SocialLinks } from "@/components/layout/SocialLinks";
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/10 py-10 dark:border-white/10">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-sm text-black/60 dark:text-white/60">
-        <div className="flex gap-5">
-          {about.socialLinks.map((link) => {
-            const Icon = ICONS[link.icon];
-            return (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.name}
-                className="hover:text-black dark:hover:text-white"
-              >
-                <Icon size={18} />
-              </a>
-            );
-          })}
+    <footer id="contact" className="mx-auto max-w-5xl px-6">
+      <div className="border-t border-line py-20 sm:py-24">
+        <Reveal>
+          <p className="font-mono text-xs text-accent">06</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+            Building something with ML or LLMs? Let&apos;s talk.
+          </h2>
+          <a
+            href={`mailto:${author.contactInfo.email}`}
+            className="mt-8 inline-flex min-h-11 items-center gap-2 text-lg font-medium text-accent underline-offset-4 hover:underline"
+          >
+            {author.contactInfo.email} <FiArrowUpRight size={18} aria-hidden />
+          </a>
+        </Reveal>
+        <div className="mt-16 flex flex-col-reverse items-start justify-between gap-4 text-sm text-subtle sm:flex-row sm:items-center">
+          <p>{site.copyright}</p>
+          <SocialLinks className="-ml-3 sm:ml-0 sm:-mr-3" />
         </div>
-        <p>{site.copyright}</p>
       </div>
     </footer>
   );

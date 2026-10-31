@@ -1,69 +1,45 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
-import { FaGithub } from "react-icons/fa";
-import { projectFilters, projects } from "@/content/projects";
+import { projects } from "@/content/projects";
+import { Reveal } from "@/components/Reveal";
+import { Chip, Section } from "@/components/Section";
+import { ProjectArchive } from "@/components/sections/ProjectArchive";
 
 export function Projects() {
-  const [active, setActive] = useState("all");
-  const visible = projects.filter((p) => active === "all" || p.tags.includes(active));
+  const featured = projects.filter((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
 
   return (
-    <section id="projects" className="mx-auto max-w-5xl px-6 py-16">
-      <h2 className="mb-6 text-2xl font-semibold">Projects</h2>
-      <div className="mb-8 flex flex-wrap gap-2">
-        {projectFilters.map((f) => (
-          <button
-            key={f.filter}
-            type="button"
-            onClick={() => setActive(f.filter)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-              active === f.filter
-                ? "bg-black text-white dark:bg-white dark:text-black"
-                : "bg-black/5 text-black/70 hover:bg-black/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20"
-            }`}
-          >
-            {f.name}
-          </button>
-        ))}
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {visible.map((project) => (
-          <div
-            key={project.name}
-            className="flex flex-col gap-3 rounded-xl border border-black/10 p-5 dark:border-white/10"
-          >
-            <div className="flex items-start gap-3">
-              <Image
-                src={project.logo}
-                alt=""
-                width={40}
-                height={40}
-                className="shrink-0 rounded-lg"
-                style={{ width: 40, height: 40, objectFit: "contain" }}
-              />
-              <div>
-                <h3 className="font-semibold leading-tight">{project.name}</h3>
-                <p className="text-xs text-black/50 dark:text-white/50">
-                  {project.role} · {project.timeline}
-                </p>
+    <Section id="projects" index="03" title="Selected work">
+      <div className="grid gap-5 sm:grid-cols-2">
+        {featured.map((project) => (
+          <Reveal key={project.name}>
+            <article className="flex h-full flex-col rounded-xl border border-line bg-card p-6 transition-colors duration-200 hover:border-accent/50">
+              <div className="flex items-center justify-between gap-3 font-mono text-xs text-subtle">
+                <span>{project.company ?? project.role}</span>
+                <span>{project.timeline}</span>
               </div>
-            </div>
-            <p className="flex-1 text-sm text-black/60 dark:text-white/60">{project.summary}</p>
-            {project.repo && (
-              <a
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white"
-              >
-                <FaGithub size={16} /> Repository
-              </a>
-            )}
-          </div>
+              <h3 className="mt-3 text-lg font-semibold tracking-tight">{project.name}</h3>
+              {project.metric && (
+                <p className="mt-3 w-fit rounded-md bg-accent-soft px-2 py-1 font-mono text-xs font-medium text-accent">
+                  {project.metric}
+                </p>
+              )}
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">{project.summary}</p>
+              {project.stack && (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.stack.map((s) => (
+                    <Chip key={s}>{s}</Chip>
+                  ))}
+                </div>
+              )}
+            </article>
+          </Reveal>
         ))}
       </div>
-    </section>
+
+      <Reveal className="mt-16">
+        <h3 className="mb-6 text-sm font-medium text-subtle">More projects</h3>
+        <ProjectArchive projects={rest} />
+      </Reveal>
+    </Section>
   );
 }

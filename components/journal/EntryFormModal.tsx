@@ -12,7 +12,7 @@ const inputStyle: React.CSSProperties = {
   border: "1px solid var(--jn-border)",
   borderRadius: 3,
   outline: "none",
-  background: "#FFFFFF",
+  background: "var(--jn-card)",
 };
 
 function LabeledArea({
@@ -96,7 +96,7 @@ export function EntryFormModal({
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(26,26,24,0.35)",
+        background: "var(--jn-overlay)",
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
@@ -108,7 +108,7 @@ export function EntryFormModal({
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "#FFFFFF",
+          background: "var(--jn-card)",
           borderRadius: 4,
           width: "100%",
           maxWidth: 520,

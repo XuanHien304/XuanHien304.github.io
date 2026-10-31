@@ -46,7 +46,7 @@ export function SubjectTabs({
             fontSize: 13,
             fontWeight: 500,
             cursor: "pointer",
-            background: selectedId === s.id ? "var(--jn-ink)" : "#FFFFFF",
+            background: selectedId === s.id ? "var(--jn-ink)" : "var(--jn-card)",
             color: selectedId === s.id ? "var(--jn-paper)" : "var(--jn-ink)",
           }}
         >

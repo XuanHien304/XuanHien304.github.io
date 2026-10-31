@@ -206,7 +206,7 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
             onClick={loadAll}
             style={{
               border: "1px solid var(--jn-border)",
-              background: "#FFFFFF",
+              background: "var(--jn-card)",
               borderRadius: 3,
               padding: "8px 16px",
               fontSize: 13,
@@ -316,7 +316,7 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
                     fontSize: 13,
                     border: "1px solid var(--jn-border)",
                     borderRadius: 3,
-                    background: "#FFFFFF",
+                    background: "var(--jn-card)",
                     outline: "none",
                   }}
                 />

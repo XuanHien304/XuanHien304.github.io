@@ -17,21 +17,21 @@ export function ThemeToggle() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return <div className="h-8 w-24" aria-hidden />;
+    return <div className="h-9 w-[6.5rem]" aria-hidden />;
   }
 
   return (
-    <div className="flex items-center gap-0.5 rounded-full border border-black/10 p-0.5 dark:border-white/10">
+    <div className="flex items-center gap-0.5 rounded-full border border-line p-0.5">
       {OPTIONS.map(({ value, label, icon: Icon }) => (
         <button
           key={value}
           type="button"
           aria-label={label}
           onClick={() => setTheme(value)}
-          className={`flex h-7 w-7 items-center justify-center rounded-full text-sm transition-colors ${
+          className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-sm transition-colors duration-200 ${
             theme === value
-              ? "bg-black/10 text-black dark:bg-white/15 dark:text-white"
-              : "text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white"
+              ? "bg-fg/10 text-fg"
+              : "text-subtle hover:text-fg"
           }`}
         >
           <Icon size={14} />

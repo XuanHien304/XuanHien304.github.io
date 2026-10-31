@@ -4,21 +4,36 @@ export interface SocialLink {
   url: string;
 }
 
+export interface Stat {
+  value: string;
+  label: string;
+}
+
 export interface AboutInfo {
   designation: string;
   resume: string;
-  summary: string;
+  paragraphs: string[];
+  stats: Stat[];
   socialLinks: SocialLink[];
 }
 
 export const about: AboutInfo = {
   designation: "Machine Learning Engineer",
   resume: "/files/resume.pdf",
-  summary:
-    "I am a passionate Machine Learning Engineer with experience in developing and deploying AI solutions for real-world applications. Currently, I'm especially focused on Large Language Models (LLMs) and their practical applications. I'll be updating my portfolio soon with my latest projects in this area. Outside of works, I enjoy playing sports and have recently started practicing calisthenics as part of my fitness journey.",
+  paragraphs: [
+    "I work across the full model lifecycle: shaping messy data into reliable features, training and evaluating models, and running them in production with the monitoring to know when they drift. Most of my day-to-day is Python, PyTorch, Spark and AWS.",
+    "Right now I'm at GE Vernova building retrieval-augmented assistants and tool-using agents for engineers. Before that I worked on alternative-data credit scoring in fintech, and on computer vision and document AI for enterprise clients. My MSc research at the University of Birmingham focused on safety in LLM-based agents.",
+    "Outside of work I play sports and have recently taken up calisthenics.",
+  ],
+  stats: [
+    { value: "59 → 70%", label: "RAG precision@5 after retrieval redesign" },
+    { value: "10B+", label: "daily telco records in feature pipelines" },
+    { value: "73 → 93%", label: "OCR accuracy with synthetic handwriting" },
+    { value: "~15", label: "engineers served by the LLM gateway I run" },
+  ],
   socialLinks: [
     { name: "Email", icon: "email", url: "mailto:vuxuanhien304@gmail.com" },
-    { name: "Github", icon: "github", url: "https://www.github.com/XuanHien304" },
+    { name: "GitHub", icon: "github", url: "https://www.github.com/XuanHien304" },
     {
       name: "LinkedIn",
       icon: "linkedin",

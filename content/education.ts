@@ -6,37 +6,49 @@ export interface Institution {
 
 export interface Degree {
   name: string;
-  icon: "microscope" | "graduation-cap";
   timeframe: string;
   institution: Institution;
+  honours?: string;
+  focus?: string;
   courses?: string[];
+}
+
+export interface Certification {
+  name: string;
+  issuer: string;
+  year?: string;
 }
 
 export const degrees: Degree[] = [
   {
-    name: "Master of Science - MS, Artificial Intelligence (AI) and Machine Learning",
-    icon: "microscope",
-    timeframe: "2024-2025",
+    name: "MSc Artificial Intelligence and Machine Learning",
+    timeframe: "2024 – 2025",
     institution: {
       name: "University of Birmingham",
       url: "https://www.birmingham.ac.uk/",
       logo: "/images/education/uob.png",
     },
+    honours: "With Distinction",
+    focus: "Research focus: safety in LLM-based AI agents",
     courses: [
-      "Natural language Processing",
+      "Natural Language Processing",
       "Computer Vision and Imaging",
       "Robot Vision",
-      "Current Topics in Artificial Intelligence and Machine Learning",
+      "Current Topics in AI and Machine Learning",
     ],
   },
   {
-    name: "B.Sc. in Biomedical Engineering",
-    icon: "graduation-cap",
-    timeframe: "2018-2022",
+    name: "BSc Biomedical Engineering",
+    timeframe: "2018 – 2022",
     institution: {
-      name: "International University - VNU-HCM",
+      name: "International University, Vietnam National University HCMC",
       url: "https://hcmiu.edu.vn/en/students/international-students/",
       logo: "/images/education/iu.png",
     },
   },
+];
+
+export const certifications: Certification[] = [
+  { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", year: "2024" },
+  { name: "Machine Learning DevOps Engineer", issuer: "Udacity" },
 ];

@@ -17,7 +17,7 @@ function sidebarBtnStyle(active: boolean): React.CSSProperties {
     border: "none",
     borderRadius: 3,
     cursor: "pointer",
-    background: active ? "#EFEEE8" : "transparent",
+    background: active ? "var(--jn-active)" : "transparent",
     color: "var(--jn-ink)",
     textAlign: "left",
     marginBottom: 1,
@@ -66,7 +66,7 @@ export function CategorySidebar({
             <span style={{ flex: 1, textAlign: "left" }}>{c.name}</span>
             <span
               className="mono"
-              style={{ fontSize: 11, color: counts[c.id] ? "var(--jn-teal)" : "#C9C7BC" }}
+              style={{ fontSize: 11, color: counts[c.id] ? "var(--jn-teal)" : "var(--jn-faint)" }}
             >
               {counts[c.id] || 0}
             </span>
