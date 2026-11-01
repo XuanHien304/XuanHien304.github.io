@@ -15,9 +15,9 @@ function sidebarBtnStyle(active: boolean): React.CSSProperties {
     padding: "7px 8px",
     fontSize: 13,
     border: "none",
-    borderRadius: 3,
+    borderRadius: 0,
     cursor: "pointer",
-    background: active ? "#EFEEE8" : "transparent",
+    background: active ? "var(--jn-active)" : "transparent",
     color: "var(--jn-ink)",
     textAlign: "left",
     marginBottom: 1,
@@ -66,7 +66,7 @@ export function CategorySidebar({
             <span style={{ flex: 1, textAlign: "left" }}>{c.name}</span>
             <span
               className="mono"
-              style={{ fontSize: 11, color: counts[c.id] ? "var(--jn-teal)" : "#C9C7BC" }}
+              style={{ fontSize: 11, color: counts[c.id] ? "var(--jn-teal)" : "var(--jn-faint)" }}
             >
               {counts[c.id] || 0}
             </span>
@@ -105,7 +105,7 @@ export function CategorySidebar({
                 fontSize: 12,
                 padding: "5px 8px",
                 border: "1px solid var(--jn-border)",
-                borderRadius: 3,
+                borderRadius: 0,
                 outline: "none",
               }}
             />
@@ -115,7 +115,7 @@ export function CategorySidebar({
                 border: "none",
                 background: "var(--jn-ink)",
                 color: "var(--jn-paper)",
-                borderRadius: 3,
+                borderRadius: 0,
                 padding: "5px 8px",
                 fontSize: 11,
                 cursor: "pointer",
@@ -137,7 +137,7 @@ export function CategorySidebar({
               padding: "7px 8px",
               fontSize: 12,
               border: "none",
-              borderRadius: 3,
+              borderRadius: 0,
               cursor: "pointer",
               background: "transparent",
               color: "var(--jn-muted)",

@@ -4,6 +4,7 @@ export interface SiteInfo {
 }
 
 export const site: SiteInfo = {
-  copyright: "© 2025 Copyright.",
-  description: "Portfolio and personal blog of Hien.",
+  copyright: "© 2026 Vu Xuan Hien",
+  description:
+    "Vu Xuan Hien, Machine Learning Engineer. LLM systems, RAG and agents, credit-risk models and computer vision, built and run in production.",
 };

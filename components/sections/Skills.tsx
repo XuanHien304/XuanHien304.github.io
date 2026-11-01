@@ -1,56 +1,101 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import { skillFilters, skills } from "@/content/skills";
+import { type Skill, skillGroups } from "@/content/skills";
+import { chapters } from "@/content/journey";
+import { PixelTabs } from "@/components/PixelTabs";
+import { Reveal } from "@/components/Reveal";
+import { Section } from "@/components/Section";
+
+// Slots per row from `sm` up. Each bag is padded with empty slots to fill its
+// last row, like a game inventory.
+const COLUMNS = 6;
 
 export function Skills() {
-  const [active, setActive] = useState("all");
-  const visible = skills.filter((s) => active === "all" || s.categories.includes(active));
+  const [bag, setBag] = useState(skillGroups[0].name);
+  const [selected, setSelected] = useState(0);
+  const group = skillGroups.find((g) => g.name === bag) ?? skillGroups[0];
+  const item = group.items[selected] ?? group.items[0];
+  const empty = (COLUMNS - (group.items.length % COLUMNS)) % COLUMNS;
 
   return (
-    <section id="skills" className="mx-auto max-w-5xl px-6 py-16">
-      <h2 className="mb-6 text-2xl font-semibold">Skills</h2>
-      <div className="mb-8 flex flex-wrap gap-2">
-        {skillFilters.map((f) => (
-          <button
-            key={f.filter}
-            type="button"
-            onClick={() => setActive(f.filter)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-              active === f.filter
-                ? "bg-black text-white dark:bg-white dark:text-black"
-                : "bg-black/5 text-black/70 hover:bg-black/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20"
-            }`}
-          >
-            {f.name}
-          </button>
-        ))}
+    <Section id="skills" kicker="INVENTORY" title="Skills & tools">
+      <Reveal className="pixel-card bg-card p-5 sm:p-8">
+        <PixelTabs
+          label="Skill bags"
+          tabs={skillGroups.map((g) => ({ id: g.name, label: g.tab, count: g.items.length }))}
+          active={group.name}
+          onChange={(id) => {
+            setBag(id);
+            setSelected(0);
+          }}
+        />
+        <div className="mt-8 grid gap-8 md:grid-cols-[auto_1fr] md:items-start">
+          <ul role="tabpanel" aria-label={group.name} className="grid grid-cols-4 gap-3 sm:grid-cols-6">
+            {group.items.map((skill, i) => (
+              <li key={skill.name}>
+                <button
+                  type="button"
+                  aria-label={skill.name}
+                  aria-pressed={i === selected}
+                  onClick={() => setSelected(i)}
+                  onFocus={() => setSelected(i)}
+                  onMouseEnter={() => setSelected(i)}
+                  className={`pixel-border flex size-14 items-center justify-center sm:size-16 ${
+                    i === selected ? "bg-accent-soft text-accent" : "bg-canvas hover:text-accent"
+                  }`}
+                >
+                  <ItemIcon skill={skill} />
+                </button>
+              </li>
+            ))}
+            {Array.from({ length: empty }, (_, i) => (
+              <li key={`empty-${i}`} aria-hidden className="pixel-border hidden size-16 bg-canvas opacity-40 sm:block" />
+            ))}
+          </ul>
+          <ItemCard skill={item} bag={group.name} />
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+function ItemIcon({ skill, large }: { skill: Skill; large?: boolean }) {
+  const Icon = skill.icon;
+  if (Icon) return <Icon aria-hidden className={large ? "size-9" : "size-7 sm:size-8"} />;
+  return <span className="font-pixel text-[10px] leading-none">{skill.short ?? skill.name.slice(0, 3)}</span>;
+}
+
+// The item description panel. It updates as slots are hovered, focused or
+// clicked, so it's announced politely to screen readers.
+function ItemCard({ skill, bag }: { skill: Skill; bag: string }) {
+  const levels = chapters.flatMap((chapter, i) => (skill.foundIn?.includes(chapter.id) ? [{ chapter, level: i + 1 }] : []));
+
+  return (
+    <div aria-live="polite" className="pixel-border bg-canvas p-5">
+      <div className="flex items-center gap-4">
+        <div className="pixel-border flex size-16 shrink-0 items-center justify-center bg-card text-fg">
+          <ItemIcon skill={skill} large />
+        </div>
+        <div className="min-w-0">
+          <p className="font-pixel text-xs leading-relaxed">{skill.name}</p>
+          <p className="font-term text-lg leading-none text-subtle">{bag}</p>
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-        {visible.map((skill) => {
-          const card = (
-            <div className="flex h-full flex-col items-center gap-3 rounded-xl border border-black/10 p-4 text-center transition-colors hover:border-black/25 dark:border-white/10 dark:hover:border-white/25">
-              <Image
-                src={skill.logo}
-                alt={skill.name}
-                width={40}
-                height={40}
-                style={{ width: 40, height: 40, objectFit: "contain" }}
-              />
-              <p className="text-sm font-medium">{skill.name}</p>
-              <p className="text-xs text-black/50 dark:text-white/50">{skill.summary}</p>
-            </div>
-          );
-          return skill.url ? (
-            <a key={skill.name} href={skill.url} target="_blank" rel="noopener noreferrer">
-              {card}
-            </a>
-          ) : (
-            <div key={skill.name}>{card}</div>
-          );
-        })}
-      </div>
-    </section>
+      <p className="mt-4 leading-relaxed text-muted text-pretty">{skill.note}</p>
+      {levels.length > 0 && (
+        <div className="mt-5">
+          <p className="font-pixel text-[8px] text-subtle">FOUND IN</p>
+          <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 font-term text-lg leading-tight">
+            {levels.map(({ chapter, level }) => (
+              <li key={chapter.id} className="flex items-center gap-2">
+                <span aria-hidden className="size-3 shrink-0" style={{ background: chapter.color }} />
+                LV {level} · {chapter.place}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }

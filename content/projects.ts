@@ -5,11 +5,14 @@ export interface ProjectFilter {
 
 export interface Project {
   name: string;
-  logo: string;
   role: string;
+  company?: string;
   timeline: string;
   summary: string;
+  metric?: string;
+  stack?: string[];
   tags: string[];
+  featured?: boolean;
   repo?: string;
 }
 
@@ -22,75 +25,103 @@ export const projectFilters: ProjectFilter[] = [
 
 export const projects: Project[] = [
   {
-    name: "Generative Japanese Handwriting Synthesis",
-    logo: "/images/projects/japan.png",
-    role: "AI Engineer",
-    timeline: "2023",
+    name: "Documentation RAG Assistant",
+    role: "Machine Learning Engineer",
+    company: "GE Vernova",
+    timeline: "2025 – 2026",
     summary:
-      "Developed a generative model to synthesize Japanese handwriting in diverse styles, enhancing Japanese OCR accuracy.",
+      "Question answering over the user guides of an engineering design platform. Structure-aware chunking handles tables, code, YAML and images, and hybrid dense + BM25 retrieval feeds a reranker. Grounding is checked with an LLM-as-judge faithfulness rubric.",
+    metric: "Precision@5 59% → 70%",
+    stack: ["RAG", "BM25", "Reranking", "FastAPI", "AWS EC2"],
     tags: ["professional"],
+    featured: true,
   },
   {
-    name: "Personalized Learning Path Recommendation System",
-    logo: "/images/projects/learn.png",
-    role: "AI Engineer",
+    name: "Natural-Language Platform Agent",
+    role: "Machine Learning Engineer",
+    company: "GE Vernova",
+    timeline: "2026",
+    summary:
+      "An agent built on the OpenAI Agents SDK with a custom MCP server, so engineers can launch optimisation runs, manage datasets and run ML workflows in plain language. A planner turns each request into tool calls, and guardrails confirm risky actions first.",
+    metric: "Plain language → tool calls",
+    stack: ["OpenAI Agents SDK", "MCP", "Guardrails"],
+    tags: ["professional"],
+    featured: true,
+  },
+  {
+    name: "Income Scoring from Telco Data",
+    role: "Machine Learning Engineer",
+    company: "Data Nest",
     timeline: "2024",
     summary:
-      "Designed a deep learning and hybrid collaborative filtering-based system for personalized learning path recommendations for Japanese students, utilizing Knowledge Tracing models.",
+      "A CatBoost income-scoring model on telco data covering about 70% of Vietnam's population, with Spark feature pipelines over 10B+ daily records and drift monitoring in production. Lenders used it to automate income checks.",
+    metric: "0.78 AUC · −45% manual review",
+    stack: ["CatBoost", "Spark", "Airflow", "MLflow"],
     tags: ["professional"],
+    featured: true,
+  },
+  {
+    name: "Generative Japanese Handwriting Synthesis",
+    role: "AI Engineer",
+    company: "FPT Software",
+    timeline: "2023",
+    summary:
+      "A GAN that renders printed Japanese text as realistic handwriting in diverse styles. It produced synthetic training data for the OCR model.",
+    metric: "OCR accuracy 73% → 93%",
+    stack: ["GANs", "PyTorch", "OCR"],
+    tags: ["professional"],
+    featured: true,
   },
   {
     name: "Video Understanding System",
-    logo: "/images/projects/vid.png",
     role: "AI Engineer",
+    company: "FPT Software",
     timeline: "2023",
     summary:
-      "Built a video understanding system for human tracking and action recognition, achieving 96% accuracy on customer test sets.",
+      "Human tracking and action recognition that combines pose estimation and an LSTM on top of a pre-trained vision-language model.",
+    metric: "96% accuracy on client test set",
     tags: ["professional"],
   },
   {
-    name: "Credit Score & Income Score (Risk Assessment)",
-    logo: "/images/projects/credit.svg",
-    role: "Machine Learning Engineer",
+    name: "Personalized Learning Path Recommendation",
+    role: "AI Engineer",
+    company: "FPT Software",
     timeline: "2024",
     summary:
-      "Developed a credit and income scoring system for Vietnamese population using telco data, improving financial accessibility.",
+      "A hybrid collaborative filtering and knowledge-tracing recommender that plans personalised learning paths for students.",
+    metric: "~30% higher course completion",
     tags: ["professional"],
   },
   {
     name: "Vietnamese Medical Chatbot",
-    logo: "/images/projects/chatbot.png",
     role: "Developer",
     timeline: "2022",
     repo: "https://github.com/XuanHien304/Vietnamese-medical-chatbot-based",
-    summary: "Built an NLP chatbot for medical queries in Vietnamese.",
+    summary: "An NLP chatbot that answers medical questions in Vietnamese.",
     tags: ["academic", "hobby"],
   },
   {
     name: "Respiratory Disease Detection Android App",
-    logo: "/images/projects/android.png",
     role: "Developer",
     timeline: "2021",
     repo: "https://github.com/XuanHien304/respiratory-disease-detection-android-app",
-    summary: "Developed a mobile app using ML to analyze coughing and breathing sounds.",
+    summary: "A mobile app that uses ML to analyse coughing and breathing sounds.",
     tags: ["academic", "hobby"],
   },
   {
     name: "End-to-End Action Segmentation",
-    logo: "/images/projects/action.png",
     role: "Developer",
     timeline: "2022",
     repo: "https://github.com/XuanHien304/E2E-Action-Segmentation",
-    summary: "Created a model to detect and classify activities in video frames.",
+    summary: "A model that detects and classifies activities across video frames.",
     tags: ["hobby"],
   },
   {
     name: "Natural Language Inference",
-    logo: "/images/projects/nli.png",
     role: "Developer",
     timeline: "2022",
     repo: "https://github.com/vnk8071/nli-end-to-end",
-    summary: "Built an NLP model using Transformers to analyze sentence relationships.",
+    summary: "A Transformer model that classifies the relationship between sentence pairs.",
     tags: ["hobby"],
   },
 ];

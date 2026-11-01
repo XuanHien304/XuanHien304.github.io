@@ -1,41 +1,38 @@
-import Image from "next/image";
 import Link from "next/link";
 import { author } from "@/content/author";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { MobileMenu } from "@/components/layout/MobileMenu";
+import { NavLink } from "@/components/layout/NavLink";
+import { Character } from "@/components/pixel/Character";
 
-const SECTION_LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#education", label: "Education" },
-  { href: "#projects", label: "Projects" },
+// In page order.
+export const NAV_LINKS = [
+  { href: "/#journey", label: "Journey" },
+  { href: "/#projects", label: "Quests" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#journal", label: "Journal" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-black/60">
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Image
-            src="/images/site/logo.png"
-            alt=""
-            width={28}
-            height={28}
-            className="rounded-full"
-            style={{ width: 28, height: 28 }}
-          />
-          {author.nickname}
+    <header className="sticky top-0 z-50 border-b-4 border-[var(--pixel)] bg-canvas">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-2" aria-label="Main">
+        <Link href="/" className="flex items-center gap-2 font-pixel text-[10px]">
+          <Character outfit="tee" scale={2} />
+          {author.nickname.toUpperCase()}
         </Link>
-        <div className="hidden items-center gap-6 text-sm font-medium text-black/70 sm:flex dark:text-white/70">
-          {SECTION_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-black dark:hover:text-white">
+        <div className="hidden items-center gap-6 font-pixel text-[10px] md:flex">
+          {NAV_LINKS.map((link) => (
+            <NavLink key={link.href} href={link.href} className="py-3 uppercase transition-colors hover:text-accent">
               {link.label}
-            </Link>
+            </NavLink>
           ))}
-          <Link href="/journal/" className="hover:text-black dark:hover:text-white">
-            Journal
-          </Link>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <MobileMenu links={NAV_LINKS} />
+        </div>
       </nav>
     </header>
   );
