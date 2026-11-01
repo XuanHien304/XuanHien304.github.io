@@ -1,71 +1,54 @@
-import Image from "next/image";
-import { FiArrowRight, FiDownload } from "react-icons/fi";
 import { author } from "@/content/author";
 import { about } from "@/content/about";
-import { Reveal } from "@/components/Reveal";
+import { Character } from "@/components/pixel/Character";
 import { SocialLinks } from "@/components/layout/SocialLinks";
+
+const MENU = [
+  { href: "#journey", label: "Start journey" },
+  { href: about.resume, label: "Download CV", external: true },
+  { href: "#contact", label: "Contact" },
+];
 
 export function Hero() {
   return (
-    <section className="mx-auto max-w-5xl px-6 pb-20 pt-14 sm:pb-28 sm:pt-24">
-      <Reveal>
-        <div className="flex items-center gap-4">
-          <Image
-            src={author.image}
-            alt={author.name}
-            width={56}
-            height={56}
-            priority
-            className="rounded-full border border-line"
-            style={{ width: 56, height: 56, objectFit: "cover" }}
-          />
-          <div>
-            <p className="font-semibold">{author.name}</p>
-            <p className="font-mono text-xs text-subtle">
-              {about.designation} · {author.location}
-            </p>
-          </div>
+    <section className="mx-auto flex max-w-5xl flex-col items-center px-6 pb-24 pt-16 text-center sm:pt-24">
+      <p className="font-term text-xl text-subtle">{author.tagline}</p>
+      <h1 className="mt-5 font-pixel text-2xl leading-snug sm:text-4xl sm:leading-snug">{author.name}</h1>
+      <p className="mt-4 font-pixel text-[10px] leading-relaxed text-accent sm:text-xs">
+        {about.designation} · {author.location}
+      </p>
+
+      <div className="mt-12 flex flex-col items-center">
+        <div className="idle-bob">
+          <Character outfit="tee" scale={7} />
         </div>
+        {/* ground shadow under the character */}
+        <div className="mt-1 h-2 w-20 bg-[var(--pixel-shadow)]" aria-hidden />
+      </div>
 
-        <h1 className="mt-10 max-w-4xl text-4xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-5xl md:text-6xl">
-          {author.headline}
-        </h1>
+      <p className="mt-10 max-w-xl text-lg leading-relaxed text-muted text-pretty">{author.intro}</p>
 
-        <div className="mt-8 max-w-2xl space-y-3 text-lg leading-relaxed text-muted text-pretty">
-          {author.summary.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
-        </div>
-
-        <p className="mt-8 flex items-start gap-2.5 text-sm text-muted">
-          <span className="relative mt-1.5 flex h-2 w-2 shrink-0" aria-hidden>
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-          </span>
-          <span>
-            Currently {author.current.role} at{" "}
-            <span className="font-medium text-fg">{author.current.company}</span>
-          </span>
-        </p>
-
-        <div className="mt-10 flex flex-wrap items-center gap-3">
+      <nav aria-label="Start" className="mt-10 flex flex-col items-start gap-1">
+        {MENU.map((item) => (
           <a
-            href="#experience"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-fg px-5 text-sm font-medium text-canvas transition-opacity duration-200 hover:opacity-85"
+            key={item.label}
+            href={item.href}
+            {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="group flex min-h-11 items-center gap-3 font-pixel text-xs uppercase transition-colors hover:text-accent focus-visible:text-accent"
           >
-            View experience <FiArrowRight size={15} aria-hidden />
+            <span className="invisible text-accent group-hover:visible group-focus-visible:visible" aria-hidden>
+              ▶
+            </span>
+            {item.label}
           </a>
-          <a
-            href={about.resume}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-medium transition-colors duration-200 hover:border-fg/40"
-          >
-            <FiDownload size={15} aria-hidden /> Download CV
-          </a>
-          <SocialLinks className="ml-1" />
-        </div>
-      </Reveal>
+        ))}
+      </nav>
+
+      <SocialLinks className="mt-8" />
+
+      <p className="blink mt-12 font-pixel text-[10px] text-subtle" aria-hidden>
+        ▼ SCROLL TO PLAY ▼
+      </p>
     </section>
   );
 }

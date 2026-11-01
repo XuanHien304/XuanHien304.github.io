@@ -1,45 +1,52 @@
-# Design system
+# Design system: pixel game
 
-Generated with the UI/UX Pro Max skill (`.claude/skills/ui-ux-pro-max`, query "portfolio machine learning engineer professional minimal", dials variance 3 / motion 3 / density 3), then adapted to this site's existing identity.
+The site is styled as a small pixel-art game. A pixel version of Hien walks down the page, and each career chapter is a "level" with its own outfit. The direction came from the UI/UX Pro Max skill's `pixel-art` style and its "Arcade & Retro Game" palette, then was tuned for readability.
 
-## Direction
-- **Style:** Minimalism & Swiss. Clean, spacious and grid-based, with a clear type hierarchy and low visual chrome.
-- **Pattern:** a storytelling portfolio. The sections run Hero → About → Experience → Selected work → Skills → Education → Contact.
-- **Tone:** a professional engineer's portfolio, not a SaaS landing page. Metrics carry the emphasis, not decoration.
+## Principles
+- **Game feel, recruiter-readable.** Pixel fonts go on headings, labels and buttons only. Story text stays in a normal sans font.
+- **Story over CV.** Each level holds 2–3 sentences and one "reward" metric. The PDF CV holds the detail.
+- **Crisp pixels.** Art has no anti-aliasing (`shapeRendering="crispEdges"` / `image-rendering: pixelated`). Animations move in steps.
 
 ## Tokens (`app/globals.css`)
-Use the semantic utilities. Never use raw `black/60` or `white/60` opacity classes.
+Light mode is **day** and dark mode is **night**, with a faint star grid. Use the semantic utilities, never raw colours.
 
-| Utility | Light | Dark | Use |
+| Utility | Day | Night | Use |
 |---|---|---|---|
-| `bg-canvas` | #fafaf8 | #0b0c0e | page background |
-| `bg-card` | #ffffff | #121316 | cards, stat tiles |
-| `text-fg` | #1a1a18 | #f2f1ec | headings, primary text |
-| `text-muted` | #4f4f49 | #b4b4ac | body copy |
-| `text-subtle` | #6b6b65 | #8a8a83 | meta, dates, labels |
-| `border-line` | #e4e2da | #26272b | dividers, card borders |
-| `text-accent` / `bg-accent-soft` | #2f5d5a / #edf2f1 | #7fb5ae / #15211f | the single accent: links, metrics, section numbers |
+| `bg-canvas` | #fbf6e9 | #0f172a | page |
+| `bg-card` | #ffffff | #172036 | cards, bubbles, slots |
+| `text-fg` | #1c1b2e | #f1f5f9 | headings, primary text |
+| `text-muted` | #3f3d56 | #cbd5e1 | body copy |
+| `text-subtle` | #5e5b78 | #94a3b8 | meta, labels |
+| `text-accent` / `bg-accent` | #c8281e | #f87171 | kickers, primary buttons (from the avatar's red) |
+| `text-score` | #15803d | #4ade80 | "★ REWARD" metrics |
+| `--pixel` | #1c1b2e | #a5b4cf | pixel border colour |
 
-The Journal keeps its own `--jn-*` variables (`app/journal/journal.css`), with a matching dark palette under `.dark .journal-root`.
+Each level also has its own colour in `content/journey.ts`. It colours the path, the level node and the outfit-swap effect. These colours are decorative only, never used for text.
+
+## Pixel utilities
+- `pixel-border`: a 4px border with notched corners, drawn with box-shadows. Leave about 4px of space around it (`gap-3`).
+- `pixel-card`: `pixel-border` plus an 8px hard drop shadow.
+- `pixel-btn`: a game-menu button with an inner bevel that presses down 2px when clicked. Combine it with a background, e.g. `bg-accent text-on-accent`.
 
 ## Typography
-- **Inter** (`font-sans`) handles all UI and body text. **JetBrains Mono** (`font-mono`) handles dates, labels, metrics and tech chips.
-- Both load through `next/font/google` in `app/layout.tsx`, so they are self-hosted with no request to Google.
-- Scale: hero h1 is `text-4xl` / `sm:text-5xl` / `md:text-6xl`, section h2 is `text-2xl` / `sm:text-3xl`, and body text is 15–18px with `leading-relaxed`.
+| Utility | Font | Use |
+|---|---|---|
+| `font-pixel` | Press Start 2P | titles, kickers, buttons, nav. It's very wide, so keep it at 8–24px |
+| `font-term` | VT323 | short labels: dates, places, chips, speech bubbles. Use 18px or more |
+| `font-sans` | Inter | story and description paragraphs |
+| `font-mono` | JetBrains Mono | the Journal only (not preloaded) |
 
-## Layout
-- The content column is `max-w-5xl px-6`.
-- Every section goes through `components/Section.tsx`, which provides the top rule, the numbered mono label and the heading.
-- On `md` and up, rows use a 12-column grid with meta in 3 columns and content in 9. The layout collapses to a single column on mobile.
+## Character
+- Code-drawn sprites live in `components/pixel/characterArt.ts`: 16×20 grids, 7 outfits, and idle/walkA/walkB frames. `components/pixel/Character.tsx` renders them.
+- To swap in AI-made art, set `outfit.sheet` in `content/journey.ts`. See `docs/character-art.md`.
 
 ## Motion
-- `components/Reveal.tsx` adds `data-reveal`. CSS scroll timelines (`animation-timeline: view()`) then fade it up 12px.
-- No JS is involved, so content is never hidden before hydration. The effect is skipped under `prefers-reduced-motion` and in browsers without scroll timelines.
-- Hover transitions run 200ms, on colour and opacity only.
+- Outfit swap: a stepped pop plus a dashed "poof" ring in the level colour.
+- Walking: the frame toggles every 150ms while scrolling.
+- Other effects: the title-screen character bobs, "SCROLL TO PLAY" blinks, and blocks reveal on scroll in 4 steps.
+- Under `prefers-reduced-motion` everything is static: no walk cycle, pops, bobbing or blinking. The scroll is never hijacked.
 
-## Checklist (from the skill)
-- No emoji icons: use `react-icons` (Feather/FontAwesome).
-- Touch targets are at least 44px (`min-h-11`, `h-11 w-11`).
-- Focus is visible (a global `:focus-visible` ring in the accent colour).
-- Text contrast is at least 4.5:1 in both themes.
-- No horizontal scroll at 375 / 768 / 1024 / 1440px.
+## Checklist
+- Touch targets are at least 44px. Focus is shown as a dashed accent outline.
+- Text contrast is at least 4.5:1 in both modes. Level colours are never used for text.
+- No horizontal scroll at 375px. On mobile the character shrinks to 3px per art pixel and the speech bubble is hidden.

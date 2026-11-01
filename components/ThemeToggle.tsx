@@ -21,14 +21,14 @@ export function ThemeToggle() {
   }
 
   return (
-    <div className="flex items-center gap-0.5 rounded-full border border-line p-0.5">
+    <div className="flex items-center gap-0.5 border-2 border-[var(--pixel)] p-0.5">
       {OPTIONS.map(({ value, label, icon: Icon }) => (
         <button
           key={value}
           type="button"
           aria-label={label}
           onClick={() => setTheme(value)}
-          className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-sm transition-colors duration-200 ${
+          className={`flex h-8 w-8 cursor-pointer items-center justify-center text-sm transition-colors duration-200 ${
             theme === value
               ? "bg-fg/10 text-fg"
               : "text-subtle hover:text-fg"

@@ -1,42 +1,43 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-ink: #1a1a18;
-  --color-paper: #fafaf8;
-  --color-accent-teal: #2f5d5a;
-  --color-accent-rust: #a8472f;
-}
-
-/* Semantic tokens (see DESIGN.md). Components use these instead of raw
-   black/white opacity classes so light and dark stay in sync. */
+/* Pixel game design system (see DESIGN.md). Light mode is "day", dark mode
+   is "night". Components use these semantic tokens, never raw colours. */
 :root {
-  --canvas: #fafaf8;
+  --canvas: #fbf6e9;
   --card: #ffffff;
-  --fg: #1a1a18;
-  --muted: #4f4f49;
-  --subtle: #6b6b65;
-  --line: #e4e2da;
-  --accent: #2f5d5a;
-  --accent-soft: #edf2f1;
+  --fg: #1c1b2e;
+  --muted: #3f3d56;
+  --subtle: #5e5b78;
+  --line: #d9d2bf;
+  --pixel: #1c1b2e;
+  --pixel-shadow: rgba(28, 27, 46, 0.18);
+  --accent: #c8281e;
+  --accent-soft: #fde4e1;
   --on-accent: #ffffff;
+  --score: #15803d;
 }
 
 .dark {
-  --canvas: #0b0c0e;
-  --card: #121316;
-  --fg: #f2f1ec;
-  --muted: #b4b4ac;
-  --subtle: #8a8a83;
-  --line: #26272b;
-  --accent: #7fb5ae;
-  --accent-soft: #15211f;
-  --on-accent: #0b0c0e;
+  --canvas: #0f172a;
+  --card: #172036;
+  --fg: #f1f5f9;
+  --muted: #cbd5e1;
+  --subtle: #94a3b8;
+  --line: #2a3650;
+  --pixel: #a5b4cf;
+  --pixel-shadow: rgba(0, 0, 0, 0.45);
+  --accent: #f87171;
+  --accent-soft: #3a1c26;
+  --on-accent: #0f172a;
+  --score: #4ade80;
 }
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-pixel: var(--font-press-start), ui-monospace, monospace;
+  --font-term: var(--font-vt323), ui-monospace, monospace;
   --color-canvas: var(--canvas);
   --color-card: var(--card);
   --color-fg: var(--fg);
@@ -46,6 +47,52 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-on-accent: var(--on-accent);
+  --color-score: var(--score);
+}
+
+/* A 4px "pixel" border drawn with box-shadows, which leaves the corners
+   notched like 8-bit UI. Add ~4px of spacing around it. */
+@utility pixel-border {
+  box-shadow:
+    0 -4px 0 0 var(--pixel),
+    0 4px 0 0 var(--pixel),
+    -4px 0 0 0 var(--pixel),
+    4px 0 0 0 var(--pixel);
+}
+
+@utility pixel-card {
+  box-shadow:
+    0 -4px 0 0 var(--pixel),
+    0 4px 0 0 var(--pixel),
+    -4px 0 0 0 var(--pixel),
+    4px 0 0 0 var(--pixel),
+    8px 8px 0 0 var(--pixel-shadow);
+}
+
+@utility pixel-btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.25rem;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  line-height: 1.6;
+  cursor: pointer;
+  box-shadow:
+    0 -4px 0 0 var(--pixel),
+    0 4px 0 0 var(--pixel),
+    -4px 0 0 0 var(--pixel),
+    4px 0 0 0 var(--pixel),
+    inset -4px -4px 0 0 rgba(0, 0, 0, 0.22);
+  transition: transform 80ms steps(1);
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+  &:active {
+    transform: translate(2px, 2px);
+  }
 }
 
 html {
@@ -60,14 +107,54 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+/* Night sky: a sparse grid of tiny stars behind the page. */
+.dark body {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1.5px);
+  background-size: 56px 56px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+:focus-visible {
+  outline: 3px dashed var(--accent);
+  outline-offset: 4px;
+}
+
+/* Journey path: a dotted trail of 4px squares. */
+.journey-path {
+  background: repeating-linear-gradient(to bottom, var(--line) 0 8px, transparent 8px 16px);
+}
+
+@keyframes pixel-pop {
+  0% {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes poof {
+  from {
+    opacity: 1;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes idle-bob {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
   }
 }
 
@@ -83,11 +170,43 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .journey-swap {
+    transform-origin: 50% 100%;
+    animation: pixel-pop 320ms steps(4, end) both;
+  }
+
+  .journey-swap::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border: 4px dashed var(--chapter);
+    pointer-events: none;
+    animation: poof 360ms steps(3, end) forwards;
+  }
+
+  .journey-says {
+    animation: pixel-pop 240ms steps(3, end) both;
+  }
+
+  .idle-bob {
+    animation: idle-bob 0.9s steps(2, jump-none) infinite alternate;
+  }
+
+  .blink {
+    animation: blink 1s steps(2, start) infinite;
+  }
+
   @supports (animation-timeline: view()) {
     [data-reveal] {
-      animation: reveal linear both;
+      animation: reveal steps(4, end) both;
       animation-timeline: view();
       animation-range: entry 0% entry 30%;
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

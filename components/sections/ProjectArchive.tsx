@@ -10,41 +10,39 @@ export function ProjectArchive({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap gap-2" role="group" aria-label="Filter projects">
+      <div className="mb-6 flex flex-wrap gap-3" role="group" aria-label="Filter projects">
         {projectFilters.map((f) => (
           <button
             key={f.filter}
             type="button"
             aria-pressed={active === f.filter}
             onClick={() => setActive(f.filter)}
-            className={`min-h-9 cursor-pointer rounded-full px-4 text-sm font-medium transition-colors duration-200 ${
-              active === f.filter ? "bg-fg text-canvas" : "border border-line text-muted hover:text-fg"
-            }`}
+            className={`pixel-btn !px-3 !text-[8px] ${active === f.filter ? "bg-accent text-on-accent" : "bg-card"}`}
           >
             {f.name}
           </button>
         ))}
       </div>
-      <ul className="divide-y divide-line border-y border-line">
+      <ul className="divide-y-2 divide-dashed divide-line">
         {visible.map((project) => (
           <li key={project.name} className="grid gap-2 py-5 md:grid-cols-12 md:gap-8">
-            <p className="font-mono text-xs text-subtle md:col-span-2 md:pt-1">{project.timeline}</p>
+            <p className="font-term text-lg leading-none text-subtle md:col-span-2 md:pt-1">{project.timeline}</p>
             <div className="md:col-span-7">
               <h4 className="font-medium">{project.name}</h4>
               <p className="mt-1 text-sm leading-relaxed text-muted">{project.summary}</p>
             </div>
-            <div className="flex items-start text-sm md:col-span-3 md:justify-end">
+            <div className="flex items-start md:col-span-3 md:justify-end">
               {project.repo ? (
                 <a
                   href={project.repo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-muted transition-colors duration-200 hover:text-fg"
+                  className="inline-flex items-center gap-2 font-term text-lg leading-none text-muted transition-colors hover:text-accent"
                 >
                   <FaGithub size={15} aria-hidden /> Repository
                 </a>
               ) : (
-                project.metric && <span className="font-mono text-xs text-accent">{project.metric}</span>
+                project.metric && <span className="font-term text-lg leading-none text-score">★ {project.metric}</span>
               )}
             </div>
           </li>

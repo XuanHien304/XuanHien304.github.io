@@ -19,18 +19,18 @@ export function MobileMenu({ links }: MobileMenuProps) {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-muted transition-colors hover:text-fg"
+        className="flex h-11 w-11 cursor-pointer items-center justify-center text-fg transition-colors hover:text-accent"
       >
         {open ? <FiX size={18} /> : <FiMenu size={18} />}
       </button>
       {open && (
-        <div id="mobile-menu" className="absolute inset-x-0 top-full border-b border-line bg-canvas px-6 py-2">
+        <div id="mobile-menu" className="absolute inset-x-0 top-full border-b-4 border-[var(--pixel)] bg-canvas px-6 py-2">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block py-3 text-sm text-muted transition-colors hover:text-fg"
+              className="block py-3 font-pixel text-[10px] uppercase transition-colors hover:text-accent"
             >
               {link.label}
             </Link>

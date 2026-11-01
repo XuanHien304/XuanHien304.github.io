@@ -8,24 +8,25 @@ export function Projects() {
   const rest = projects.filter((p) => !p.featured);
 
   return (
-    <Section id="projects" index="03" title="Selected work">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <Section id="projects" kicker="QUEST LOG" title="Main quests">
+      <div className="grid gap-8 sm:grid-cols-2">
         {featured.map((project) => (
           <Reveal key={project.name}>
-            <article className="flex h-full flex-col rounded-xl border border-line bg-card p-6 transition-colors duration-200 hover:border-accent/50">
-              <div className="flex items-center justify-between gap-3 font-mono text-xs text-subtle">
+            <article className="pixel-card flex h-full flex-col bg-card p-6">
+              <div className="flex items-center justify-between gap-3 font-term text-lg leading-none text-subtle">
                 <span>{project.company ?? project.role}</span>
                 <span>{project.timeline}</span>
               </div>
-              <h3 className="mt-3 text-lg font-semibold tracking-tight">{project.name}</h3>
+              <h3 className="mt-4 font-pixel text-xs leading-relaxed">{project.name}</h3>
               {project.metric && (
-                <p className="mt-3 w-fit rounded-md bg-accent-soft px-2 py-1 font-mono text-xs font-medium text-accent">
-                  {project.metric}
+                <p className="mt-4 flex items-baseline gap-2">
+                  <span className="font-pixel text-[8px] text-score">★ REWARD</span>
+                  <span className="font-term text-2xl leading-none">{project.metric}</span>
                 </p>
               )}
               <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">{project.summary}</p>
               {project.stack && (
-                <div className="mt-5 flex flex-wrap gap-2">
+                <div className="mt-6 flex flex-wrap gap-3">
                   {project.stack.map((s) => (
                     <Chip key={s}>{s}</Chip>
                   ))}
@@ -36,8 +37,8 @@ export function Projects() {
         ))}
       </div>
 
-      <Reveal className="mt-16">
-        <h3 className="mb-6 text-sm font-medium text-subtle">More projects</h3>
+      <Reveal className="mt-20">
+        <h3 className="mb-6 font-pixel text-xs">Side quests</h3>
         <ProjectArchive projects={rest} />
       </Reveal>
     </Section>

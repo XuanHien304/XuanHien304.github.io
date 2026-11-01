@@ -2,30 +2,30 @@ import { Reveal } from "@/components/Reveal";
 
 interface SectionProps {
   id: string;
-  index: string;
+  // Small game-style label above the title, e.g. "QUEST LOG".
+  kicker: string;
   title: string;
   children: React.ReactNode;
 }
 
-export function Section({ id, index, title, children }: SectionProps) {
+export function Section({ id, kicker, title, children }: SectionProps) {
   return (
-    <section id={id} className="mx-auto max-w-5xl px-6">
-      <div className="border-t border-line py-20 sm:py-24">
-        <Reveal>
-          <header className="mb-10 flex items-baseline gap-3 sm:mb-12">
-            <span className="font-mono text-xs text-accent">{index}</span>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
-          </header>
-        </Reveal>
-        {children}
-      </div>
+    <section id={id} className="mx-auto max-w-5xl px-6 py-20 sm:py-24">
+      <Reveal>
+        <header className="mb-10 sm:mb-12">
+          <p className="font-pixel text-[10px] text-accent">{kicker}</p>
+          <h2 className="mt-3 font-pixel text-lg leading-relaxed sm:text-2xl sm:leading-relaxed">{title}</h2>
+        </header>
+      </Reveal>
+      {children}
     </section>
   );
 }
 
+// An inventory-style slot for tech names.
 export function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-line px-2 py-0.5 font-mono text-xs text-subtle">
+    <span className="pixel-border inline-flex items-center bg-card px-2 py-1 font-term text-lg leading-none">
       {children}
     </span>
   );
