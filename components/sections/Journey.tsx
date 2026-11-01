@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { type Chapter, chapters } from "@/content/journey";
 import { Character } from "@/components/pixel/Character";
+import { Scenery } from "@/components/pixel/Scenery";
 
 // Where the character stands, as a fraction of the viewport height. A level
 // starts when its node scrolls up to this line.
@@ -14,6 +15,7 @@ export function Journey() {
   const nodeRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const [active, setActive] = useState(0);
   const [walking, setWalking] = useState(false);
+  const [onScreen, setOnScreen] = useState(false);
 
   useEffect(() => {
     let stopTimer: ReturnType<typeof setTimeout> | undefined;
@@ -24,7 +26,13 @@ export function Journey() {
       const section = sectionRef.current;
       if (!section) return;
       const line = window.innerHeight * CHARACTER_LINE;
-      const travelled = Math.min(Math.max(line - section.getBoundingClientRect().top, 0), section.offsetHeight);
+      const rect = section.getBoundingClientRect();
+      const travelled = Math.min(Math.max(line - rect.top, 0), section.offsetHeight);
+      // Show the scenery while the character walks the path, and fade it out
+      // as the end of the journey comes into view. The next section opens
+      // with 80px of padding, so 64px of slack keeps its heading off the
+      // scenery.
+      setOnScreen(rect.top < line && rect.bottom > window.innerHeight - 64);
       section.style.setProperty("--journey-progress", `${travelled}px`);
 
       let next = 0;
@@ -55,6 +63,7 @@ export function Journey() {
 
   return (
     <section id="journey" ref={sectionRef} aria-label="Career journey" className="mx-auto flex max-w-5xl px-6">
+      <Scenery active={current.id} visible={onScreen} />
       {/* pb keeps the character and his speech bubble inside the journey when it ends */}
       <div className="relative w-16 shrink-0 pb-28 md:w-48 md:pb-44" aria-hidden>
         <div className="journey-path absolute inset-y-0 left-1/2 w-1 -translate-x-1/2" />
@@ -72,7 +81,7 @@ export function Journey() {
 
       <ol className="min-w-0 flex-1">
         {chapters.map((chapter, i) => (
-          <li key={chapter.id} className="relative min-h-[65vh] pb-16 pl-5 md:pl-10">
+          <li key={chapter.id} className="relative min-h-[65vh] pb-16 pl-5 last:min-h-[85vh] md:pl-10">
             <span
               ref={(el) => {
                 nodeRefs.current[i] = el;

@@ -40,6 +40,16 @@ Each level also has its own colour in `content/journey.ts`. It colours the path,
 - Code-drawn sprites live in `components/pixel/characterArt.ts`: 16×20 grids, 7 outfits, and idle/walkA/walkB frames. `components/pixel/Character.tsx` renders them.
 - To swap in AI-made art, set `outfit.sheet` in `content/journey.ts`. See `docs/character-art.md`.
 
+## Scenery
+- Each level has a faint horizon silhouette: a lab, an office, a skyline, Birmingham, wind turbines, a park. The art lives in `components/pixel/sceneArt.ts` as 96×36 rect lists, and `components/pixel/Scenery.tsx` renders it.
+- Kept deliberately quiet:
+  - one colour (`text-line`), so day and night need no separate art
+  - fixed at the bottom-left behind the character, masked out before the text column
+  - one scene at a time, crossfading in 4 steps
+  - shown only while the journey reaches the bottom of the screen, so the next section never scrolls over it
+  - desktop only (`md` and up)
+- Scenes stay static. Don't add parallax, colour, or animated scenery; the character and outfit change are the moving parts.
+
 ## Motion
 - Outfit swap: a stepped pop plus a dashed "poof" ring in the level colour.
 - Walking: the frame toggles every 150ms while scrolling.
