@@ -119,8 +119,8 @@ function Player({ chapter, level, walking }: { chapter: Chapter; level: number; 
     <div className="flex flex-col items-center">
       {/* key remounts the sprite so the swap animation replays on every outfit change */}
       <div key={chapter.id} className="journey-swap relative" style={{ "--chapter": chapter.color } as React.CSSProperties}>
-        <Character outfit={chapter.outfit.id} sheet={chapter.outfit.sheet} walking={walking} scale={3} className="md:hidden" />
-        <Character outfit={chapter.outfit.id} sheet={chapter.outfit.sheet} walking={walking} scale={6} className="hidden md:block" />
+        <Character outfit={chapter.outfit.id} walking={walking} scale={3} className="md:hidden" />
+        <Character outfit={chapter.outfit.id} walking={walking} scale={6} className="hidden md:block" />
       </div>
       <p
         key={`${chapter.id}-says`}

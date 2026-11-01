@@ -15,9 +15,6 @@ export interface Chapter {
     label: string;
     // What the character says when this level starts.
     says: string;
-    // AI-made sprite sheet, e.g. "/images/journey/student.png". Until it
-    // exists, the code-drawn sprite for `id` is used.
-    sheet?: string;
   };
 }
 

@@ -2,65 +2,79 @@
 
 import { useEffect, useState } from "react";
 import { type Frame, type OutfitId, SPRITE_HEIGHT, SPRITE_WIDTH, spriteGrid } from "@/components/pixel/characterArt";
+import { type SpriteSheet, sheets } from "@/components/pixel/sheets";
 
 interface CharacterProps {
   outfit: OutfitId;
-  // Size of one art pixel in CSS pixels.
+  // Size of one code-sprite pixel in CSS pixels. Sprite sheets are scaled to
+  // the same height, rounded so their pixels stay crisp.
   scale: number;
   walking?: boolean;
-  // Optional AI-made sprite sheet: one row of 3 frames (idle, walkA, walkB),
-  // see docs/character-art.md. When set it replaces the code-drawn sprite.
-  sheet?: string;
   className?: string;
 }
 
-const FRAME_INDEX: Record<Frame, number> = { idle: 0, walkA: 1, walkB: 2 };
+const WALK_INTERVAL_MS = 120;
 
-export function Character({ outfit, scale, walking = false, sheet, className = "" }: CharacterProps) {
+export function Character({ outfit, scale, walking = false, className = "" }: CharacterProps) {
+  const sheet = sheets[outfit];
   const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (!walking || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setStep((s) => 1 - s), 150);
+    const id = setInterval(() => setStep((s) => s + 1), WALK_INTERVAL_MS);
     return () => clearInterval(id);
   }, [walking]);
 
-  const frame: Frame = walking ? (step ? "walkB" : "walkA") : "idle";
-  const width = SPRITE_WIDTH * scale;
-  const height = SPRITE_HEIGHT * scale;
-
   if (sheet) {
-    return (
-      <div
-        role="img"
-        aria-label="Pixel-art Hien"
-        className={className}
-        style={{
-          width,
-          height,
-          backgroundImage: `url(${sheet})`,
-          backgroundSize: "300% 100%",
-          backgroundPosition: `${FRAME_INDEX[frame] * 50}% 0`,
-          imageRendering: "pixelated",
-        }}
-      />
-    );
+    return <SheetSprite sheet={sheet} frame={walking ? step % sheet.frames : 0} scale={scale} className={className} />;
   }
 
-  return <PixelSprite outfit={outfit} frame={frame} width={width} height={height} className={className} />;
+  const frame: Frame = walking ? (step % 2 ? "walkB" : "walkA") : "idle";
+  return <PixelSprite outfit={outfit} frame={frame} scale={scale} className={className} />;
+}
+
+function SheetSprite({
+  sheet,
+  frame,
+  scale,
+  className,
+}: {
+  sheet: SpriteSheet;
+  frame: number;
+  scale: number;
+  className: string;
+}) {
+  // Whole multiples (or halves when shrinking) keep every art pixel square.
+  const ratio = (SPRITE_HEIGHT * scale) / sheet.frameSize;
+  const k = ratio >= 1 ? Math.round(ratio) : Math.max(0.5, Math.round(ratio * 2) / 2);
+  const size = sheet.frameSize * k;
+
+  return (
+    <div
+      role="img"
+      aria-label="Pixel-art Hien"
+      className={className}
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: `url(${sheet.src})`,
+        backgroundSize: `${sheet.frames * 100}% 100%`,
+        backgroundPosition: `${sheet.frames > 1 ? (frame / (sheet.frames - 1)) * 100 : 0}% 0`,
+        imageRendering: "pixelated",
+      }}
+    />
+  );
 }
 
 function PixelSprite({
   outfit,
   frame,
-  width,
-  height,
+  scale,
   className,
 }: {
   outfit: OutfitId;
   frame: Frame;
-  width: number;
-  height: number;
+  scale: number;
   className: string;
 }) {
   const { grid, palette } = spriteGrid(outfit, frame);
@@ -83,8 +97,8 @@ function PixelSprite({
       role="img"
       aria-label="Pixel-art Hien"
       viewBox={`0 0 ${SPRITE_WIDTH} ${SPRITE_HEIGHT}`}
-      width={width}
-      height={height}
+      width={SPRITE_WIDTH * scale}
+      height={SPRITE_HEIGHT * scale}
       shapeRendering="crispEdges"
       className={className}
     >

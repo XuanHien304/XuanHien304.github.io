@@ -2,6 +2,27 @@
 
 The site already works with a code-drawn placeholder sprite. This guide covers replacing it with your own pixel art, made with AI and cleaned up by hand.
 
+## Status: made with the PixelLab MCP (2026-11-01)
+
+Base character "C" was generated from a text description of the avatar (v3, 64px). Each outfit was made in three steps:
+1. `edit_image_pixen` on C's south view: "Change only his clothes: …, keep the same face, hair, skin, pose, size and position" (1 generation).
+2. `create_character` (v3, `reference_image_url` = the edited image, 4 directions) (1 generation).
+3. `animate_character` with the `walk` template, south only (1 generation, 6 frames).
+
+The frames are aligned onto an 80×80 canvas (feet 2px above the bottom edge) and stitched into `public/images/journey/<file>.png`. They are registered in `components/pixel/sheets.ts`.
+
+| Outfit | PixelLab character id | Sheet | Status |
+|---|---|---|---|
+| tee (base C) | af8a4849-11a2-4af9-b8a1-67449324e082 | base.png | ✅ |
+| labCoat | 65bb77e7-b9c0-41f2-a4ec-f148303981ec | student.png | ✅ |
+| hoodie | 4cf4ae85-88be-4528-9791-83716e1cac5a | fpt.png | ✅ |
+| shirtTie | a8e09830-dca8-4d17-bc2c-a007cf1a8c63 | datanest.png | ✅ |
+| coatScarf | 3e0ab9e8-b3e7-47d0-b039-10948b4eb619 | birmingham.png | ✅ |
+| hardHat | 2236652a-e1bc-4806-b195-5b49a8a2800b | gevernova.png | ⏳ character made; walk failed (free tier rate-limited) |
+| training | — | offline.png | ⏳ not started (edit failed, rate-limited) |
+
+To finish, run the `walk` template on the hardHat character, then repeat the three steps for training gear (green tank top, red headband, black shorts, red sneakers). Add both to `sheets.ts`.
+
 ## What you need to make
 
 There are **7 sprite sheets**: the base look plus one per level.
