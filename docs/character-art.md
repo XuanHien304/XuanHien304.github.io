@@ -17,7 +17,7 @@ The frames are aligned onto an 80×80 canvas (feet 2px above the bottom edge) an
 | labCoat | 65bb77e7-b9c0-41f2-a4ec-f148303981ec | student.png | ✅ |
 | hoodie | 4cf4ae85-88be-4528-9791-83716e1cac5a | fpt.png | ✅ |
 | shirtTie | a8e09830-dca8-4d17-bc2c-a007cf1a8c63 | datanest.png | ✅ |
-| coatScarf | 3e0ab9e8-b3e7-47d0-b039-10948b4eb619 | birmingham.png | ✅ |
+| gown (graduation, replaced coat & scarf) | b55fdfc9-40c6-4ead-95fa-73d7644b5f6b | birmingham.png | ✅ |
 | hardHat | 2236652a-e1bc-4806-b195-5b49a8a2800b | gevernova.png | ⏳ character made; walk failed (free tier rate-limited) |
 | training | — | offline.png | ⏳ not started (edit failed, rate-limited) |
 
@@ -33,7 +33,7 @@ There are **7 sprite sheets**: the base look plus one per level.
 | `student.png` | white lab coat over a blue shirt | 1 · Biomedical student |
 | `fpt.png` | orange hoodie, jeans, white sneakers | 2 · FPT Software |
 | `datanest.png` | light blue shirt, red tie | 3 · Data Nest |
-| `birmingham.png` | purple coat, red scarf | 4 · Birmingham MSc |
+| `birmingham.png` | black graduation gown, mortarboard with gold tassel | 4 · Birmingham MSc |
 | `gevernova.png` | yellow hard hat, orange hi-vis vest | 5 · GE Vernova |
 | `offline.png` | green tank top, red headband, shorts | Bonus · off the clock |
 

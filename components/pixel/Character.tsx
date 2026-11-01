@@ -53,7 +53,7 @@ function SheetSprite({
     <div
       role="img"
       aria-label="Pixel-art Hien"
-      className={className}
+      className={`pixel-sprite ${className}`}
       style={{
         width: size,
         height: size,
@@ -100,7 +100,7 @@ function PixelSprite({
       width={SPRITE_WIDTH * scale}
       height={SPRITE_HEIGHT * scale}
       shapeRendering="crispEdges"
-      className={className}
+      className={`pixel-sprite ${className}`}
     >
       {rects}
     </svg>

@@ -118,6 +118,13 @@ body {
   outline-offset: 4px;
 }
 
+/* Night mode rim light: a faint 2px outline so dark outfits (the black
+   graduation gown) don't disappear into the navy background. */
+.dark .pixel-sprite {
+  filter: drop-shadow(2px 0 0 rgba(165, 180, 207, 0.4)) drop-shadow(-2px 0 0 rgba(165, 180, 207, 0.4))
+    drop-shadow(0 2px 0 rgba(165, 180, 207, 0.4)) drop-shadow(0 -2px 0 rgba(165, 180, 207, 0.4));
+}
+
 /* Journey path: a dotted trail of 4px squares. */
 .journey-path {
   background: repeating-linear-gradient(to bottom, var(--line) 0 8px, transparent 8px 16px);

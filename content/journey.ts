@@ -62,7 +62,7 @@ export const chapters: Chapter[] = [
       "An MSc in AI and Machine Learning, finished with Distinction. My research looked at keeping LLM-based agents safe, which turned out to be exactly the problem my next job needed solving.",
     highlight: { value: "Distinction", label: "MSc AI & ML, University of Birmingham" },
     color: "#a78bfa",
-    outfit: { id: "coatScarf", label: "Coat & scarf", says: "It's raining again." },
+    outfit: { id: "gown", label: "Graduation gown", says: "Graduated with Distinction!" },
   },
   {
     id: "gevernova",

@@ -86,13 +86,14 @@ export const outfits = {
       15: "..KtTTTAATTTtK..",
     },
   },
-  coatScarf: {
-    palette: { T: "#6b5bb5", t: "#4c3d91", A: "#dc2626", a: "#991b1b", P: "#1f2937", B: "#111827" },
+  gown: {
+    palette: { T: "#1f2937", t: "#111827", A: "#2563eb", Y: "#facc15", P: "#111827", B: "#111827" },
     overlay: {
-      11: "...KKAAAAAAKK...",
-      12: "...KAAAAAAAAK...",
-      13: "...KTTaATTTTK...",
-      14: "..KTTTaATTTTTK..",
+      0: ".KKKKKKKKKKKKKK.",
+      1: "..KTTTTTTTTTTKY.",
+      2: "...KTTTTTTTTK.Y.",
+      12: "....KAASSAAK....",
+      13: "...KTAATTAATK...",
       17: "...KTTTTTTTTK...",
     },
   },

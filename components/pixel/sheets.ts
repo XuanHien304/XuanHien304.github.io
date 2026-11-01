@@ -15,5 +15,5 @@ export const sheets: Partial<Record<OutfitId, SpriteSheet>> = {
   labCoat: { src: "/images/journey/student.png", frames: 6, frameSize: 80 },
   hoodie: { src: "/images/journey/fpt.png", frames: 6, frameSize: 80 },
   shirtTie: { src: "/images/journey/datanest.png", frames: 6, frameSize: 80 },
-  coatScarf: { src: "/images/journey/birmingham.png", frames: 6, frameSize: 80 },
+  gown: { src: "/images/journey/birmingham.png", frames: 6, frameSize: 80 },
 };
