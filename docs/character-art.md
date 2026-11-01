@@ -18,10 +18,10 @@ The frames are aligned onto an 80×80 canvas (feet 2px above the bottom edge) an
 | hoodie | 4cf4ae85-88be-4528-9791-83716e1cac5a | fpt.png | ✅ |
 | shirtTie | a8e09830-dca8-4d17-bc2c-a007cf1a8c63 | datanest.png | ✅ |
 | gown (graduation, replaced coat & scarf) | b55fdfc9-40c6-4ead-95fa-73d7644b5f6b | birmingham.png | ✅ |
-| hardHat | 2236652a-e1bc-4806-b195-5b49a8a2800b | gevernova.png | ⏳ character made; walk failed (free tier rate-limited) |
-| training | — | offline.png | ⏳ not started (edit failed, rate-limited) |
+| hardHat | 2236652a-e1bc-4806-b195-5b49a8a2800b | gevernova.png | ✅ |
+| training | 6dfa6385-acc2-42a7-9114-fb40a48b8ce2 | offline.png | ✅ |
 
-To finish, run the `walk` template on the hardHat character, then repeat the three steps for training gear (green tank top, red headband, black shorts, red sneakers). Add both to `sheets.ts`.
+All levels use PixelLab art. The code-drawn sprites in `characterArt.ts` remain as a fallback for any outfit without a sheet.
 
 ## What you need to make
 
