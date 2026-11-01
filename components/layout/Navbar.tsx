@@ -2,14 +2,16 @@ import Link from "next/link";
 import { author } from "@/content/author";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { NavLink } from "@/components/layout/NavLink";
 import { Character } from "@/components/pixel/Character";
 
+// In page order.
 export const NAV_LINKS = [
   { href: "/#journey", label: "Journey" },
   { href: "/#projects", label: "Quests" },
   { href: "/#skills", label: "Skills" },
+  { href: "/#journal", label: "Journal" },
   { href: "/#contact", label: "Contact" },
-  { href: "/journal/", label: "Journal" },
 ];
 
 export function Navbar() {
@@ -22,9 +24,9 @@ export function Navbar() {
         </Link>
         <div className="hidden items-center gap-6 font-pixel text-[10px] md:flex">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="py-3 uppercase transition-colors hover:text-accent">
+            <NavLink key={link.href} href={link.href} className="py-3 uppercase transition-colors hover:text-accent">
               {link.label}
-            </Link>
+            </NavLink>
           ))}
         </div>
         <div className="flex items-center gap-2">

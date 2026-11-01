@@ -10,7 +10,7 @@ const inputStyle: React.CSSProperties = {
   padding: "8px 10px",
   fontSize: 13,
   border: "1px solid var(--jn-border)",
-  borderRadius: 3,
+  borderRadius: 0,
   outline: "none",
   background: "var(--jn-card)",
 };
@@ -109,7 +109,7 @@ export function EntryFormModal({
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--jn-card)",
-          borderRadius: 4,
+          borderRadius: 0,
           width: "100%",
           maxWidth: 520,
           padding: 24,
@@ -186,7 +186,7 @@ export function EntryFormModal({
               background: "transparent",
               color: "var(--jn-ink)",
               border: "1px solid var(--jn-border)",
-              borderRadius: 3,
+              borderRadius: 0,
               padding: "8px 16px",
               fontSize: 13,
               cursor: "pointer",
@@ -201,7 +201,7 @@ export function EntryFormModal({
               background: "var(--jn-ink)",
               color: "var(--jn-paper)",
               border: "none",
-              borderRadius: 3,
+              borderRadius: 0,
               padding: "8px 16px",
               fontSize: 13,
               fontWeight: 500,

@@ -92,4 +92,3 @@ Put the PNG in `public/images/journey/`, add `sheet` in `content/journey.ts`, ru
 - Consistency matters more than detail. A simple sprite that is identical across outfits looks better than detailed ones that drift.
 - Check all outfits side by side before cleaning up. Regenerate any that drift (different face, size or pose).
 - Keep your master prompt and settings, so later outfits (new job, new hobby) match.
-- Claude Design is not needed for the character. It's useful only if you want to explore page layouts visually.

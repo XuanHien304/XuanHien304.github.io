@@ -136,7 +136,7 @@ function Player({ chapter, level, walking }: { chapter: Chapter; level: number; 
         className="journey-says pixel-border mt-5 hidden w-44 bg-card px-3 py-2 text-center font-term text-xl leading-tight md:block"
       >
         <span className="mb-2 block font-pixel text-[8px] leading-relaxed text-subtle">
-          {level > 5 ? "BONUS" : `LV ${level}`} · {chapter.outfit.label.toUpperCase()}
+          {level > 5 ? "BONUS" : `LV ${level}`}
         </span>
         {chapter.outfit.says}
       </p>

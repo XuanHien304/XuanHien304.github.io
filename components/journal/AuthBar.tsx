@@ -20,7 +20,7 @@ export function AuthBar() {
             style={{
               border: "1px solid var(--jn-border)",
               background: "transparent",
-              borderRadius: 3,
+              borderRadius: 0,
               padding: "6px 10px",
               fontSize: 12,
               cursor: "pointer",
@@ -38,7 +38,7 @@ export function AuthBar() {
             gap: 6,
             border: "1px solid var(--jn-border)",
             background: "var(--jn-card)",
-            borderRadius: 3,
+            borderRadius: 0,
             padding: "6px 12px",
             fontSize: 12,
             fontWeight: 500,

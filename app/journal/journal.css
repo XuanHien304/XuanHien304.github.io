@@ -1,36 +1,35 @@
+/* The journal uses the site's pixel tokens (app/globals.css), so it follows
+   day and night like the rest of the site. */
 .journal-root {
-  --jn-paper: #fafaf8;
-  --jn-ink: #1a1a18;
-  --jn-border: #dedcd3;
-  --jn-muted: #6b6b65;
-  --jn-placeholder: #a6a49a;
-  --jn-teal: #2f5d5a;
-  --jn-teal-bg: #edf2f1;
-  --jn-rust: #a8472f;
-  --jn-card: #ffffff;
-  --jn-active: #efeee8;
-  --jn-faint: #c9c7bc;
-  --jn-overlay: rgba(26, 26, 24, 0.35);
+  --jn-paper: var(--canvas);
+  --jn-ink: var(--fg);
+  --jn-border: var(--line);
+  --jn-muted: var(--subtle);
+  --jn-placeholder: var(--subtle);
+  --jn-teal: var(--accent);
+  --jn-teal-bg: var(--accent-soft);
+  --jn-rust: var(--accent);
+  --jn-card: var(--card);
+  --jn-active: var(--accent-soft);
+  --jn-faint: var(--line);
+  --jn-overlay: rgba(15, 23, 42, 0.5);
 
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
   background: var(--jn-paper);
   color: var(--jn-ink);
-  min-height: 100vh;
+  min-height: 70vh;
 }
 
-.dark .journal-root {
-  --jn-paper: #0b0c0e;
-  --jn-ink: #f2f1ec;
-  --jn-border: #2a2b2e;
-  --jn-muted: #9a9a93;
-  --jn-placeholder: #6b6b65;
-  --jn-teal: #6fa8a2;
-  --jn-teal-bg: #16201f;
-  --jn-rust: #c8654b;
-  --jn-card: #141518;
-  --jn-active: #1e1f23;
-  --jn-faint: #45464a;
-  --jn-overlay: rgba(0, 0, 0, 0.6);
+/* Entries read as pixel cards: a hard border and drop shadow. */
+.journal-root .jentry {
+  border: 0 !important;
+  box-shadow:
+    0 -4px 0 0 var(--pixel),
+    0 4px 0 0 var(--pixel),
+    -4px 0 0 0 var(--pixel),
+    4px 0 0 0 var(--pixel),
+    8px 8px 0 0 var(--pixel-shadow);
+  margin-bottom: 20px !important;
 }
 
 .journal-root .mono {

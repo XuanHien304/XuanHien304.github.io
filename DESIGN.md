@@ -41,14 +41,29 @@ Each level also has its own colour in `content/journey.ts`. It colours the path,
 - To swap in AI-made art, set `outfit.sheet` in `content/journey.ts`. See `docs/character-art.md`.
 
 ## Scenery
-- Each level has a faint horizon silhouette: a lab, an office, a skyline, Birmingham, wind turbines, a park. The art lives in `components/pixel/sceneArt.ts` as 96×36 rect lists, and `components/pixel/Scenery.tsx` renders it.
+- Each level has a faint landscape silhouette: a lab, an office, a skyline, Birmingham, wind turbines, a park. The art lives in `components/pixel/sceneArt.ts` as 96×36 rect lists, and `components/pixel/Scenery.tsx` renders it at 8px per art pixel (768×288).
 - Kept deliberately quiet:
-  - one colour (`text-line`), so day and night need no separate art
-  - fixed at the bottom-left behind the character, masked out before the text column
+  - one colour (`text-line`), so day and night need no separate art and the story text stays readable over it
+  - fixed along the bottom of the screen, pinned to the screen's right edge; the ground line runs the full width
   - one scene at a time, crossfading in 4 steps
   - shown only while the journey reaches the bottom of the screen, so the next section never scrolls over it
   - desktop only (`md` and up)
 - Scenes stay static. Don't add parallax, colour, or animated scenery; the character and outfit change are the moving parts.
+
+## Inventory (skills)
+- Each skill category is a bag. `PixelTabs` (`components/PixelTabs.tsx`) switches bags, and each bag is a grid of square slots padded with empty slots to fill its last row.
+- Hovering, focusing or clicking a slot shows its item card: name, bag, a one-line note, and the levels where it was used ("FOUND IN").
+- Slots show the tool's logo from `react-icons/si`, or a short pixel-font label when there's no logo (AWS, RAG, SQL…).
+- Data lives in `content/skills.ts`. Keep the notes to what the CV backs up.
+
+## Journal
+- The main page has a Journal section ("LOGBOOK") with one `PixelTabs` tab per area. Every panel stays mounted (hidden when inactive), so the Supabase study preview loads once.
+- **Study** comes from Supabase but shows progress only (entries logged, topics, last entry date), never the DSA entries themselves. The full journal (search, categories, the owner's editor) is on `/journal/study`.
+- **Travel** and **Game & Sports** are files in the repo, not Supabase:
+  - `content/travel.ts`: trips with pixel flag stamps (`components/travel/FlagStamp.tsx`), a story, and photos that open in a dialog. Photos live in `public/images/travel/<trip>/`, 1600px wide with location metadata stripped.
+  - `content/play.ts`: signature games and sports as inventory-style cards, plus highlight clips. Clips live in `public/videos/` as H.264 MP4s under about 5MB, with `preload="none"` so nothing downloads until play.
+  - Cards hide any story, photos or clips that are missing.
+- `/journal` shares the site's navbar, footer and tokens: the `--jn-*` variables in `app/journal/journal.css` map onto the site tokens, corners are square, and entries are pixel cards.
 
 ## Motion
 - Outfit swap: a stepped pop plus a dashed "poof" ring in the level colour.

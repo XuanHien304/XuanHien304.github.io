@@ -207,7 +207,7 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
             style={{
               border: "1px solid var(--jn-border)",
               background: "var(--jn-card)",
-              borderRadius: 3,
+              borderRadius: 0,
               padding: "8px 16px",
               fontSize: 13,
               cursor: "pointer",
@@ -236,8 +236,8 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
             alignItems: "center",
             gap: 12,
             background: "var(--jn-rust)",
-            color: "#FFFFFF",
-            borderRadius: 4,
+            color: "var(--on-accent)",
+            borderRadius: 0,
             padding: "10px 14px",
             fontSize: 13,
             maxWidth: "min(90vw, 480px)",
@@ -247,7 +247,7 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
           <span>{mutationError}</span>
           <button
             onClick={() => setMutationError(null)}
-            style={{ border: "none", background: "transparent", color: "#FFFFFF", cursor: "pointer", flexShrink: 0 }}
+            style={{ border: "none", background: "transparent", color: "var(--on-accent)", cursor: "pointer", flexShrink: 0 }}
           >
             Dismiss
           </button>
@@ -280,7 +280,9 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
             >
               <FiArrowLeft size={12} /> All journals
             </Link>
-            <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>{title}</h1>
+            <h1 className="font-pixel" style={{ fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: "4px 0 0" }}>
+              {title}
+            </h1>
             <p className="mono" style={{ fontSize: 12, color: "var(--jn-muted)", margin: "4px 0 0" }}>
               {tagline}
             </p>
@@ -315,7 +317,7 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
                     padding: "9px 12px 9px 34px",
                     fontSize: 13,
                     border: "1px solid var(--jn-border)",
-                    borderRadius: 3,
+                    borderRadius: 0,
                     background: "var(--jn-card)",
                     outline: "none",
                   }}
@@ -331,7 +333,7 @@ export function JournalApp({ area, title, tagline }: JournalAppProps) {
                     background: "var(--jn-ink)",
                     color: "var(--jn-paper)",
                     border: "none",
-                    borderRadius: 3,
+                    borderRadius: 0,
                     padding: "9px 14px",
                     fontSize: 13,
                     fontWeight: 500,

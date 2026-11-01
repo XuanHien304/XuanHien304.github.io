@@ -41,7 +41,7 @@ export function SubjectTabs({
           onClick={() => onSelect(s.id)}
           style={{
             border: "1px solid var(--jn-border)",
-            borderRadius: 999,
+            borderRadius: 0,
             padding: "6px 14px",
             fontSize: 13,
             fontWeight: 500,
@@ -67,7 +67,7 @@ export function SubjectTabs({
                 fontSize: 13,
                 padding: "6px 10px",
                 border: "1px solid var(--jn-border)",
-                borderRadius: 999,
+                borderRadius: 0,
                 outline: "none",
               }}
             />
@@ -78,7 +78,7 @@ export function SubjectTabs({
                 border: "none",
                 background: "var(--jn-ink)",
                 color: "var(--jn-paper)",
-                borderRadius: 999,
+                borderRadius: 0,
                 padding: "6px 12px",
                 fontSize: 12,
                 cursor: "pointer",
@@ -95,7 +95,7 @@ export function SubjectTabs({
               alignItems: "center",
               gap: 4,
               border: "1px dashed var(--jn-border)",
-              borderRadius: 999,
+              borderRadius: 0,
               padding: "6px 12px",
               fontSize: 13,
               color: "var(--jn-muted)",

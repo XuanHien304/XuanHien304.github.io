@@ -55,8 +55,8 @@ export function EntryRow({
 
   return (
     <div
-      className="jrow"
-      style={{ border: "1px solid var(--jn-border)", borderRadius: 3, marginBottom: 10, background: "var(--jn-card)" }}
+      className="jrow jentry"
+      style={{ border: "1px solid var(--jn-border)", borderRadius: 0, marginBottom: 10, background: "var(--jn-card)" }}
     >
       <div
         onClick={onToggle}
@@ -80,7 +80,7 @@ export function EntryRow({
               color: "var(--jn-teal)",
               background: "var(--jn-teal-bg)",
               padding: "2px 7px",
-              borderRadius: 2,
+              borderRadius: 0,
               whiteSpace: "nowrap",
             }}
           >
@@ -103,7 +103,7 @@ export function EntryRow({
                 cursor: "pointer",
                 color: "var(--jn-muted)",
                 padding: 4,
-                borderRadius: 3,
+                borderRadius: 0,
                 display: "flex",
                 alignItems: "center",
               }}
@@ -121,7 +121,7 @@ export function EntryRow({
                 cursor: "pointer",
                 color: "var(--jn-muted)",
                 padding: 4,
-                borderRadius: 3,
+                borderRadius: 0,
                 display: "flex",
                 alignItems: "center",
               }}

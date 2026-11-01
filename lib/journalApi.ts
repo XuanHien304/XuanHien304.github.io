@@ -27,6 +27,33 @@ export async function fetchEntries(): Promise<Entry[]> {
   return data as Entry[];
 }
 
+export interface AreaStats {
+  entries: number;
+  // Categories in the area, e.g. one per DSA pattern.
+  topics: number;
+  lastEntry: string | null;
+}
+
+// Counts for one area, for the main-page preview: no entry content.
+export async function fetchAreaStats(area: string): Promise<AreaStats> {
+  const client = await requireClient();
+  const subjects = await fetchSubjects(area);
+  if (subjects.length === 0) return { entries: 0, topics: 0, lastEntry: null };
+  const ids = subjects.map((s) => s.id);
+  const [entries, topics, latest] = await Promise.all([
+    client.from("entries").select("id", { count: "exact", head: true }).in("subject_id", ids),
+    client.from("categories").select("id", { count: "exact", head: true }).in("subject_id", ids),
+    client.from("entries").select("entry_date").in("subject_id", ids).order("entry_date", { ascending: false }).limit(1),
+  ]);
+  const error = entries.error ?? topics.error ?? latest.error;
+  if (error) throw error;
+  return {
+    entries: entries.count ?? 0,
+    topics: topics.count ?? 0,
+    lastEntry: (latest.data as { entry_date: string }[])[0]?.entry_date ?? null,
+  };
+}
+
 export async function createSubject(name: string, sortOrder: number, area: string): Promise<Subject> {
   const client = await requireClient();
   const slug = name

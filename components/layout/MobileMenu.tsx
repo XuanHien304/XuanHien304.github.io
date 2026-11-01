@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { NavLink } from "@/components/layout/NavLink";
 import { FiMenu, FiX } from "react-icons/fi";
 
 interface MobileMenuProps {
@@ -26,14 +26,14 @@ export function MobileMenu({ links }: MobileMenuProps) {
       {open && (
         <div id="mobile-menu" className="absolute inset-x-0 top-full border-b-4 border-[var(--pixel)] bg-canvas px-6 py-2">
           {links.map((link) => (
-            <Link
+            <NavLink
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
               className="block py-3 font-pixel text-[10px] uppercase transition-colors hover:text-accent"
             >
               {link.label}
-            </Link>
+            </NavLink>
           ))}
         </div>
       )}
