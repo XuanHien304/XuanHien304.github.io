@@ -57,11 +57,11 @@ Each level also has its own colour in `content/journey.ts`. It colours the path,
 - Data lives in `content/skills.ts`. Keep the notes to what the CV backs up.
 
 ## Journal
-- The main page has a Journal section ("LOGBOOK") with one `PixelTabs` tab per area. Every panel stays mounted (hidden when inactive), so the Supabase study preview loads once.
+- The main page has a Journal section ("LOGBOOK") with one `PixelTabs` tab per area, in the order Travel, Game & Sports, Study (Travel is the default). Every panel stays mounted (hidden when inactive), so the Supabase study preview loads once.
 - **Study** comes from Supabase but shows progress only (entries logged, topics, last entry date), never the DSA entries themselves. The full journal (search, categories, the owner's editor) is on `/journal/study`.
 - **Travel** and **Game & Sports** are files in the repo, not Supabase:
-  - `content/travel.ts`: trips with pixel flag stamps (`components/travel/FlagStamp.tsx`), a story, and photos that open in a dialog. Photos live in `public/images/travel/<trip>/`, 1600px wide with location metadata stripped.
-  - `content/play.ts`: signature games and sports as inventory-style cards, plus highlight clips. Clips live in `public/videos/` as H.264 MP4s under about 5MB, with `preload="none"` so nothing downloads until play.
+  - `content/travel.ts`: trips with pixel flag stamps (`components/travel/FlagStamp.tsx`), a story, and photos that open in a dialog (`components/PhotoGrid.tsx`, shared with the trophy images). Photos live in `public/images/travel/<trip>/`, 1600px wide with location metadata stripped.
+  - `content/play.ts`: signature games and sports as inventory-style cards and highlight clips. Cards show only an icon and name; hovering or focusing one (tap on touch screens) expands it into a wider tooltip (288px, opening left, right or centred to stay inside the grid) over the content below, showing the description, an optional green stat, and an optional trophy image from `public/images/play/`. Every signature needs a description so the panels stay consistent. The main page shows the first three clips. Clips live in `public/videos/` as H.264 MP4s under about 5MB, with `preload="none"` so nothing downloads until play.
   - Cards hide any story, photos or clips that are missing.
 - `/journal` shares the site's navbar, footer and tokens: the `--jn-*` variables in `app/journal/journal.css` map onto the site tokens, corners are square, and entries are pixel cards.
 

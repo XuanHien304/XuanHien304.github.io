@@ -10,7 +10,8 @@ import { PixelTabs } from "@/components/PixelTabs";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/Section";
 import { TripCard } from "@/components/travel/TripCard";
-import { Highlights, Signatures } from "@/components/play/Play";
+import { Highlights } from "@/components/play/Play";
+import { Signatures } from "@/components/play/Signatures";
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -31,9 +32,6 @@ export function Journal() {
         />
         <p className="mt-6 max-w-xl leading-relaxed text-muted">{current.description}</p>
 
-        <Panel slug="study" active={area}>
-          <StudyPreview />
-        </Panel>
         <Panel slug="travel" active={area}>
           <ul className="grid gap-8 md:grid-cols-3">
             {trips.map((trip) => (
@@ -46,8 +44,11 @@ export function Journal() {
         <Panel slug="game" active={area}>
           <div className="grid gap-12">
             <Signatures />
-            <Highlights limit={2} />
+            <Highlights limit={3} />
           </div>
+        </Panel>
+        <Panel slug="study" active={area}>
+          <StudyPreview />
         </Panel>
 
         <Link href={`/journal/${area}/`} className="pixel-btn mt-10 bg-accent text-on-accent">

@@ -1,5 +1,6 @@
 import { JournalHeader } from "@/components/journal/JournalHeader";
-import { Highlights, Signatures } from "@/components/play/Play";
+import { Highlights } from "@/components/play/Play";
+import { Signatures } from "@/components/play/Signatures";
 
 export default function GameJournalPage() {
   return (
